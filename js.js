@@ -348,11 +348,11 @@ console.log(result);
 const wordsArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'];
 
 wordsArr.OnforEach = function (callback) {
-  console.log(this);
+    console.log(this);
 
-  for (let i = 0; i < this.length; i++) {
-    callback(this[i])
-  }
+    for (let i = 0; i < this.length; i++) {
+        callback(this[i])
+    }
 }
 
 wordsArr.OnforEach((param) => console.log(`Hello people number ${param}`));
@@ -360,14 +360,14 @@ wordsArr.OnforEach((param) => console.log(`Hello people number ${param}`));
 const wordsArr2 = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'];
 
 const word2 = wordsArr2.map((word, index) => {
-  return { name: word, index };
+    return { name: word, index };
 }).filter(({ name, index }) => name.length > index)
-  .find(({ name, index }) => name[index] === 'o')
+    .find(({ name, index }) => name[index] === 'o')
 
 console.log(word2);
 let stringArr = 'abrakadabra'.split('').reduce((counter, char) => ({
-  ...counter,
-  [char]: (counter[char] || 0) + 1,
+    ...counter,
+    [char]: (counter[char] || 0) + 1,
 }), {});
 
 console.log(stringArr);
@@ -409,49 +409,49 @@ const complexStylesString = `
 `;
 
 function revertCss(style) {
-  if (style.length === 0) {
-    return {};
-  }
+    if (style.length === 0) {
+        return {};
+    }
 
-  // debugger;
+    // debugger;
 
-  const getArrayFromString = style.trim().split(';');
+    const getArrayFromString = style.trim().split(';');
 
-  const formateString = getArrayFromString
-    .filter((arrString) => arrString.trim().length > 0)
-    .map(arrString => {
-      const [key, value] = arrString.split(':').map(part => part.trim());
-      return { [key]: value.split(', ').map(v => v.trim()).join(',') };
-    })
-  const outPutObj = { ...formateString };
+    const formateString = getArrayFromString
+        .filter((arrString) => arrString.trim().length > 0)
+        .map(arrString => {
+            const [key, value] = arrString.split(':').map(part => part.trim());
+            return { [key]: value.split(', ').map(v => v.trim()).join(',') };
+        })
+    const outPutObj = { ...formateString };
 
-  return outPutObj
-  console.log(getArrayFromString)
-  console.log(formateString)
+    return outPutObj
+    console.log(getArrayFromString)
+    console.log(formateString)
 }
 
 console.log(revertCss(complexStylesString))
 
 
 const people = [
-  { name: 'Carolus Haverbeke', father: 'Carel Haverbeke', mother: 'Maria van Brussel' },
-  { name: 'Emma de Milliano', father: 'Petrus de Milliano', mother: 'Sophia van Damme' },
-  { name: 'Laurentia Haverbeke', father: 'Jan Haverbeke', mother: 'Maria de Rycke' },
-  { name: 'Maria de Rycke', father: 'Frederik de Rycke', mother: 'Laurentia van Vlaenderen' },
-  { name: 'Carel Haverbeke', father: 'Pieter Antone Haverbeke', mother: 'Livina Sierens' },
-  { name: 'Elisabeth Haverbeke', father: 'Jan Haverbeke', mother: 'Maria de Rycke' },
+    { name: 'Carolus Haverbeke', father: 'Carel Haverbeke', mother: 'Maria van Brussel' },
+    { name: 'Emma de Milliano', father: 'Petrus de Milliano', mother: 'Sophia van Damme' },
+    { name: 'Laurentia Haverbeke', father: 'Jan Haverbeke', mother: 'Maria de Rycke' },
+    { name: 'Maria de Rycke', father: 'Frederik de Rycke', mother: 'Laurentia van Vlaenderen' },
+    { name: 'Carel Haverbeke', father: 'Pieter Antone Haverbeke', mother: 'Livina Sierens' },
+    { name: 'Elisabeth Haverbeke', father: 'Jan Haverbeke', mother: 'Maria de Rycke' },
 ];
 
 function getPeopleWithChildren(people) {
-  return people.map(person => {
-    const children = people.filter(person2 => person.name === person2.father
-      || person.name === person2.mother);
+    return people.map(person => {
+        const children = people.filter(person2 => person.name === person2.father
+            || person.name === person2.mother);
 
-    return {
-      ...person,
-      children,
-    };
-  });
+        return {
+            ...person,
+            children,
+        };
+    });
 }
 
 console.log(getPeopleWithChildren(people));
@@ -464,18 +464,18 @@ let f;
 let getB;
 
 if (true) {
-  let b = 2;
+    let b = 2;
 
-  if (true) {
-    let c = 3;
-    f = function () {
-      console.log(c);
+    if (true) {
+        let c = 3;
+        f = function () {
+            console.log(c);
+        }
     }
-  }
 
-  getB = function() {
-    console.log(b);
-  }
+    getB = function () {
+        console.log(b);
+    }
 }
 
 console.log(a);
@@ -488,14 +488,14 @@ let getSum;
 
 if (true) {
 
-  let sum = 0;
+    let sum = 0;
 
-  add = function add(x) {
-    sum += x;
-    console.log(sum);
-  }
+    add = function add(x) {
+        sum += x;
+        console.log(sum);
+    }
 
-  getSum = () => sum;
+    getSum = () => sum;
 }
 
 add(10);
@@ -511,15 +511,15 @@ const team = [];
 let firstFreeNum = 4;
 
 while (firstFreeNum <= 387) {
-  let current = firstFreeNum;
+    let current = firstFreeNum;
 
-  const player = () => {
-    console.log(current)
-  };
+    const player = () => {
+        console.log(current)
+    };
 
-  team.push(player);
+    team.push(player);
 
-  firstFreeNum++;
+    firstFreeNum++;
 }
 
 team[0]();
@@ -529,21 +529,21 @@ console.log(team);
 
 
 function creatRecorder(name) {
-  let words = [];
+    let words = [];
 
-  const recorder = (...args) => {
-    if (args.length === 0) {
-      console.log(name, words.join(' '));
-    } else {
-      words.push(...args);
+    const recorder = (...args) => {
+        if (args.length === 0) {
+            console.log(name, words.join(' '));
+        } else {
+            words.push(...args);
+        }
     }
-  }
 
-  recorder.clear = () => {
-    words = [];
-  }
+    recorder.clear = () => {
+        words = [];
+    }
 
-  return recorder;
+    return recorder;
 }
 
 const yourRecorder = creatRecorder('Friend');
@@ -562,17 +562,17 @@ yourRecorder();
 myRecorder();
 
 function makePackage(connectionsLimit) { // 4
-  let remainingConnections = connectionsLimit;
+    let remainingConnections = connectionsLimit;
 
-  return () => {
-    if (remainingConnections > 0) {
-      remainingConnections--;
+    return () => {
+        if (remainingConnections > 0) {
+            remainingConnections--;
 
-      return (`${remainingConnections} connections left`);
-    } else {
-      return 'You reached the connections limit!';
-    }
-  };
+            return (`${remainingConnections} connections left`);
+        } else {
+            return 'You reached the connections limit!';
+        }
+    };
 }
 
 
@@ -584,3 +584,119 @@ console.log(connection())
 console.log(connection())
 console.log(connection())
 connection()
+
+
+let addX;
+let clearSum;
+
+if (true) {
+    let sum = 0;
+
+    function toAdd(x) {
+        sum += x;
+        console.log(sum);
+    }
+
+    addX = toAdd;
+
+    function clear() {
+        return sum = 0;
+    }
+
+    clearSum = clear;
+
+}
+
+addX(105);
+clearSum();
+
+addX(20);
+addX(20);
+addX(20);
+
+clearSum();
+
+addX(20);
+addX(20);
+
+function recorder(name) {
+    let words = [];
+
+    const recorder = (word) => words.push(word); 
+
+    recorder.play = () => {
+      console.log(`${name}: ${words.join(' ') || 'enter valid'}`)
+    };
+
+    recorder.clear = () => {
+        words = [];
+    };
+
+    return recorder;
+}
+
+let captain = recorder('Andrei');
+
+captain('donets');
+captain('nash');
+captain.play();
+captain.clear();
+captain.play();
+captain('nash');
+captain('nash');
+captain('nash');
+captain.play();
+captain.clear();
+captain.play();
+
+
+function makeWarehouse(goods = []) {
+  let weight = 0;
+  let sumOfAllProducts = goods.length;
+
+  if (goods.length > 0) {
+    for (const num of goods) {
+      weight += num;
+    }
+  }
+
+  const warehouse = (...args) => {
+    for (const num of args) {
+      weight += num;
+      sumOfAllProducts++;
+    }
+
+    const totalWeight = Math.round(weight);
+    const averageWeight = Math.round(weight / sumOfAllProducts) || 0;
+
+    return {
+      totalWeight,
+      averageWeight,
+    };
+  };
+
+  warehouse.clear = () => {
+    weight = 0;
+    sumOfAllProducts = 0;
+  };
+
+  warehouse.displayWeight = () => {
+    console.log(warehouse());
+  };
+
+  return warehouse;
+}
+
+
+const warehouse = makeWarehouse([23]);
+
+console.log(warehouse(24));
+console.log(warehouse(246));
+warehouse.clear();
+console.log(warehouse(23));
+console.log(warehouse(23));
+warehouse.clear();
+warehouse.displayWeight();
+console.log(warehouse(257473));
+console.log(warehouse(3));
+warehouse.displayWeight();
