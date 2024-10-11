@@ -774,3 +774,34 @@ console.log(newStorage.getSecret('d'));
 console.log(newStorage.getSecret('pab'));
 
 
+function makeInfinityAdder() {
+  let sumOfAllNumbers = 0;
+  let copyOfSum;
+
+  const adder = (number = null) => {
+    sumOfAllNumbers += number;
+
+    if (number === null) {
+      copyOfSum = sumOfAllNumbers;
+      sumOfAllNumbers = 0;
+      
+      return copyOfSum;
+    }
+
+    return adder;
+  };
+
+  return adder;
+}
+
+const newChainAdder = makeInfinityAdder();
+
+newChainAdder(53)(423)(2)
+console.log(newChainAdder())
+console.log(newChainAdder())
+console.log(newChainAdder(456)(32)(-5435))
+console.log(newChainAdder())
+console.log(newChainAdder())
+
+
+
