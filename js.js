@@ -804,4 +804,21 @@ console.log(newChainAdder())
 console.log(newChainAdder())
 
 
+function toArrayOfDigits(ne) {
+  const newArr = [];
+  const nNew = ne + '';
+
+  for (let i = 0; i < nNew.length; i++) {
+    newArr.push(+nNew[i]);
+  }
+
+  return newArr.reverse();
+}
+
+
+console.log(toArrayOfDigits(145727));
+// const digitsArray = Array.from(n.toString()).map(Number);
+
+
+
 
