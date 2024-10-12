@@ -821,4 +821,79 @@ console.log(toArrayOfDigits(145727));
 
 
 
+function countOccurrences(phrase, part) {
+  let count = 0;
+  
+  // debugger;
 
+  let index = phrase.indexOf(part);
+
+  while (index !== -1) {
+    count++;
+    index = phrase.indexOf(part, index + 1);
+    console.log(count);
+  }
+
+  console.log(count)
+  return count;
+}
+
+countOccurrences('azyxxzyzy', 'zy');
+
+
+function isArrayPretty(numbers) {
+  let count = 0;
+
+  // debugger;
+
+  for (let i = 0; i <= numbers.length; i++) {
+    for (let j = numbers.length - 1; j <= 0; j--) {
+      if (numbers[i] + 1 === numbers[j] || numbers[i] - 1 === numbers[j]) {
+        count++; // 1 1
+      }
+    }
+  }
+
+  if (count % 2 === 0) {
+    return true;
+  }
+
+  return false;
+}
+
+console.log(isArrayPretty([3, 2, 10]));
+
+
+function makeStorage() {
+  const obj = {};
+
+  const storage = () => {
+    return obj;
+  };
+
+  storage.setValue = (key, value) => {
+    obj[key] = value;
+  };
+
+  storage.getValue = (key) => {
+    return obj[key];
+  };
+
+  storage.getObjectInfo = () => {
+    console.log(obj);
+  }
+
+  return storage;
+}
+
+
+const newBag = makeStorage();
+
+newBag.setValue('RAM', '32GB');
+newBag.setValue('CPU', 'i5 4770');
+newBag.setValue('CPU FAN', 'DeepCool');
+newBag.setValue('Mouse', 'Logitech g102');
+newBag.setValue('Laptop', 'Dell latitude 5420');
+console.log(newBag.getValue('RAM'));
+console.log(newBag)
+newBag.getObjectInfo();
