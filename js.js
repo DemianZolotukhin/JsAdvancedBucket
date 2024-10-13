@@ -965,3 +965,40 @@ const kerbin = {
 Object.setPrototypeOf(kerbin, movementCore);
 Object.setPrototypeOf(movementCore, navigationCore);
 Object.setPrototypeOf(navigationCore, mainCore);
+
+
+function createUser(name, role = 'User') {
+  const user = {};
+
+  user.name = name;
+  user.role = role;
+  user.friend = [];
+
+  user.getInfo = function() {
+    return `${this.role} ${this.name} has ${this.friend.length} friends`
+  };
+
+  user.friendAdd = function(userName) {
+    if (!this.friend.includes(userName))
+    this.friend.push(userName)
+    userName.friend.push(this);
+  }
+
+  return user;
+}
+
+const user1 = createUser('Demian', 'QC');
+console.log(user1.getInfo());
+
+
+const user2 = createUser('Andrei', 'DevOps');
+console.log(user2.getInfo());
+
+console.log(user1.friendAdd(user2));
+
+console.log(user1.friend);
+console.log(user2.friend);
+console.log(user2.getInfo());
+
+
+
