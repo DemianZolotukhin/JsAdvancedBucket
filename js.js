@@ -1043,3 +1043,66 @@ console.log(bob.withdrawMoney(596839, 'омон залетел'))
 
 
 console.log(bob);
+
+
+
+
+class User {
+  static ROLE_USER = 'user';
+  static ROLE_ADMIN = 'admin';
+
+  static users = [];
+
+  static getAvgAge (users) {
+    let sum = 0;
+  
+    if (Array.isArray(users)) {
+      sum = users.reduce((total, user) => total + user.age,
+      0)
+
+      return  users.length ? sum / users.length : 0;
+    } else {
+      return 'Not an Array!'
+    }
+  }
+
+
+  constructor (name, age, role){
+    this.name = name;
+    this.role = role;
+    this.age = age;
+    this.friends = [];
+    User.users.push(this);
+  }
+
+  static getAllUsers () {
+    return User.users;
+  }
+
+  getInfo () {
+    return `${this.name} have ${this.role} role and ${this.friends.length} friend's and ${this.age} years old`;
+  }
+
+  celebBirthday () {
+    this.age++
+
+    return `Today I'am one year older, ${this.age}!`
+  }
+}
+
+const alina = new User('Alina', 56,User.ROLE_USER);
+const amila = new User('Amila', 6,User.ROLE_USER);
+const camila = new User('Camila', 16,User.ROLE_USER);
+const lana = new User('Lana', 57,User.ROLE_ADMIN);
+const sergei = new User('Sergei', 26,User.ROLE_USER);
+const ahmet = new User('Ahmet', 46,User.ROLE_USER);
+
+
+console.log(User.getAllUsers())
+
+console.log(User.getAvgAge(User.users))
+
+console.log(amila.getInfo())
+console.log(camila.getInfo())
+console.log(camila.celebBirthday())
+console.log(camila.getInfo())
