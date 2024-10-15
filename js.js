@@ -1001,4 +1001,45 @@ console.log(user2.friend);
 console.log(user2.getInfo());
 
 
+class BankAccount {
+  /**
+   * @param {string} name
+   * @param {number} money
+   */
+  constructor(name, money) {
+    this.transactionHistory = [`Initial: ${this.amountTotal}`];
+    this.amountTotal = money;
+    this.name = name;
+  }
 
+  getInfo() {
+    return `Name: ${this.name}, Amount: ${this.amountTotal}`;
+  }
+
+  addMoney(amount, info) {
+    this.amountTotal += amount
+    this.transactionHistory.push(`${info}: ${amount}`);
+  }
+
+  withdrawMoney(amount, info) {
+    if (amount <= this.amountTotal) {
+      this.amountTotal -= amount;
+      this.transactionHistory.push(`${info}: -${amount}`);
+    } else {
+      return 'Not Valid balance';
+    }
+  }
+
+  getAccountHistory() {
+    return this.transactionHistory;
+  }
+}
+
+const bob = new BankAccount('bob broke', 400);
+
+console.log(bob);
+bob.addMoney(596439, 'ип пополнение от госдепа')
+console.log(bob.withdrawMoney(596839, 'омон залетел'))
+
+
+console.log(bob);
