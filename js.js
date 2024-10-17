@@ -1174,39 +1174,9 @@ class DeliveryDrone extends FlyingRobot {
   }
 }
 
-class Animal {
-  static alive = [];
-
-  health = 100;
-  constructor(name) {
-    this.name = name;
-    Animal.alive.push(this);
-  }
-}
-
-class Herbivore extends Animal {
-  hidden = false;
-
-  hide() {
-    this.hidden = true;
-  }
-}
-
-class Carnivore extends Animal {
-  bite(toBite) {
-    if (toBite instanceof Herbivore) {
-      if (toBite.hidden === null && toBite.health > 0) {
-        toBite.health -= 50;
-      }
-    }
-
-    if (toBite.health <= 0) {
-      const index = Animal.alive.indexOf(toBite);
-
-      Animal.alive.splice(index, 1);
-    }
-  }
-}
+import {Animal} from './Animal.js'
+import {Carnivore} from './Carnivore.js'
+import {Herbivore} from './Herbivore.js'
 
 const an1 = new Carnivore('Tiger');
 console.log(an1);
