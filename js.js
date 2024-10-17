@@ -1199,3 +1199,20 @@ console.log(an1.bite(an3));
 console.log(an1.bite(an3));
 console.log(an3);
 console.log(Animal.alive)
+
+
+const today = new Date();
+
+console.log(today);
+console.log(today.getFullYear());
+today.setFullYear(2027)
+console.log(today.getFullYear());
+
+// today.setDate(today.getDate() + 40);
+console.log(today.getMonth())
+
+console.log(
+  Date.now(),
+  Date.parse('2023-09-23'),
+  new Date('2023-09-23'),
+);
