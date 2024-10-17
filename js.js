@@ -784,7 +784,7 @@ function makeInfinityAdder() {
     if (number === null) {
       copyOfSum = sumOfAllNumbers;
       sumOfAllNumbers = 0;
-      
+
       return copyOfSum;
     }
 
@@ -823,7 +823,7 @@ console.log(toArrayOfDigits(145727));
 
 function countOccurrences(phrase, part) {
   let count = 0;
-  
+
   // debugger;
 
   let index = phrase.indexOf(part);
@@ -974,13 +974,13 @@ function createUser(name, role = 'User') {
   user.role = role;
   user.friend = [];
 
-  user.getInfo = function() {
+  user.getInfo = function () {
     return `${this.role} ${this.name} has ${this.friend.length} friends`
   };
 
-  user.friendAdd = function(userName) {
+  user.friendAdd = function (userName) {
     if (!this.friend.includes(userName))
-    this.friend.push(userName)
+      this.friend.push(userName)
     userName.friend.push(this);
   }
 
@@ -1053,21 +1053,21 @@ class User {
 
   static users = [];
 
-  static getAvgAge (users) {
+  static getAvgAge(users) {
     let sum = 0;
-  
+
     if (Array.isArray(users)) {
       sum = users.reduce((total, user) => total + user.age,
-      0)
+        0)
 
-      return  users.length ? sum / users.length : 0;
+      return users.length ? sum / users.length : 0;
     } else {
       return 'Not an Array!'
     }
   }
 
 
-  constructor (name, age, role){
+  constructor(name, age, role) {
     this.name = name;
     this.role = role;
     this.age = age;
@@ -1075,27 +1075,27 @@ class User {
     User.users.push(this);
   }
 
-  static getAllUsers () {
+  static getAllUsers() {
     return User.users;
   }
 
-  getInfo () {
+  getInfo() {
     return `${this.name} have ${this.role} role and ${this.friends.length} friend's and ${this.age} years old`;
   }
 
-  celebBirthday () {
+  celebBirthday() {
     this.age++
 
     return `Today I'am one year older, ${this.age}!`
   }
 }
 
-const alina = new User('Alina', 56,User.ROLE_USER);
-const amila = new User('Amila', 6,User.ROLE_USER);
-const camila = new User('Camila', 16,User.ROLE_USER);
-const lana = new User('Lana', 57,User.ROLE_ADMIN);
-const sergei = new User('Sergei', 26,User.ROLE_USER);
-const ahmet = new User('Ahmet', 46,User.ROLE_USER);
+const alina = new User('Alina', 56, User.ROLE_USER);
+const amila = new User('Amila', 6, User.ROLE_USER);
+const camila = new User('Camila', 16, User.ROLE_USER);
+const lana = new User('Lana', 57, User.ROLE_ADMIN);
+const sergei = new User('Sergei', 26, User.ROLE_USER);
+const ahmet = new User('Ahmet', 46, User.ROLE_USER);
 
 
 console.log(User.getAllUsers())
@@ -1144,7 +1144,7 @@ class BaseRobot {
 class FlyingRobot extends BaseRobot {
   constructor(name, weight, coords = { x: 0, y: 0, z: 0 }, chipVersion) {
     super(name, weight, coords, chipVersion);
-    this.coords.z = coords.z || 0; 
+    this.coords.z = coords.z || 0;
   }
 
   goUp(step = 1) {
@@ -1159,24 +1159,24 @@ class FlyingRobot extends BaseRobot {
 class DeliveryDrone extends FlyingRobot {
   constructor(name, weight, coords, chipVersion, maxLoadWeight, currentLoad = null) {
     super(name, weight, coords, chipVersion);
-    this.currentLoad = currentLoad; 
-    this.maxLoadWeight = maxLoadWeight; 
+    this.currentLoad = currentLoad;
+    this.maxLoadWeight = maxLoadWeight;
   }
 
- hookLoad(cargo) {
+  hookLoad(cargo) {
     if (this.currentLoad === null && cargo.weight <= this.maxLoadWeight) {
       this.currentLoad = cargo;
-    } 
+    }
   };
 
   unhookLoad() {
-    this.currentLoad = null; 
+    this.currentLoad = null;
   }
 }
 
-import {Animal} from './Animal.js'
-import {Carnivore} from './Carnivore.js'
-import {Herbivore} from './Herbivore.js'
+import { Animal } from './Animal.js'
+import { Carnivore } from './Carnivore.js'
+import { Herbivore } from './Herbivore.js'
 
 const an1 = new Carnivore('Tiger');
 console.log(an1);
@@ -1216,3 +1216,42 @@ console.log(
   Date.parse('2023-09-23'),
   new Date('2023-09-23'),
 );
+
+
+function sum(a, b) {
+  return a + b + 1;
+}
+
+function subtract(a, b) {
+  return a - b + 1;
+}
+
+test('test for sum', () => {
+  const result5 = sum(3, 5);
+
+  const expected = 8;
+
+  if (result5 !== expected) {
+    throw new Error(`Result is not equal expected ${result5} !== ${expected}`);
+  }
+})
+
+test('test for subtract', () => {
+
+  const result5 = subtract(3, 5);
+
+  const expected = -2;
+
+  if (result5 !== expected) {
+    throw new Error(`Result is not equal expected ${result5} !== ${expected}`);
+  }
+})
+
+function test(message, cb) {
+  try {
+    cb()
+  } catch (e) {
+    console.log(message);
+    console.error(e)
+  }
+}
