@@ -1174,4 +1174,58 @@ class DeliveryDrone extends FlyingRobot {
   }
 }
 
+class Animal {
+  static alive = [];
 
+  health = 100;
+  constructor(name) {
+    this.name = name;
+    Animal.alive.push(this);
+  }
+}
+
+class Herbivore extends Animal {
+  hidden = false;
+
+  hide() {
+    this.hidden = true;
+  }
+}
+
+class Carnivore extends Animal {
+  bite(toBite) {
+    if (toBite instanceof Herbivore) {
+      if (toBite.hidden === null && toBite.health > 0) {
+        toBite.health -= 50;
+      }
+    }
+
+    if (toBite.health <= 0) {
+      const index = Animal.alive.indexOf(toBite);
+
+      Animal.alive.splice(index, 1);
+    }
+  }
+}
+
+const an1 = new Carnivore('Tiger');
+console.log(an1);
+
+const an2 = new Herbivore('Bembi');
+console.log(an2);
+
+an2.hide()
+console.log(an2);
+
+console.log(Animal.alive)
+console.log(an1.bite(an2));
+console.log(an1);
+console.log(an2);
+
+const an3 = new Herbivore('Dino');
+console.log(an3);
+console.log(Animal.alive)
+console.log(an1.bite(an3));
+console.log(an1.bite(an3));
+console.log(an3);
+console.log(Animal.alive)
