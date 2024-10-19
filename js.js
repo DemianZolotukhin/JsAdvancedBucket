@@ -1217,41 +1217,32 @@ console.log(
   new Date('2023-09-23'),
 );
 
+function getPlan() {
+  const arrayOfStrings = [];
 
-function sum(a, b) {
-  return a + b + 1;
+  const arr = (string) => {
+      const stringLenght = string.length;
+      arrayOfStrings.push({
+          [string]: stringLenght
+      });
+  }
+
+  arr.getStrings = () => arrayOfStrings;
+
+  return arr;
 }
 
-function subtract(a, b) {
-  return a - b + 1;
-}
+const lengthOfFour = getPlan();
 
-test('test for sum', () => {
-  const result5 = sum(3, 5);
+console.log(lengthOfFour('Gbbr'))
+console.log(lengthOfFour.getStrings())
 
-  const expected = 8;
 
-  if (result5 !== expected) {
-    throw new Error(`Result is not equal expected ${result5} !== ${expected}`);
-  }
-})
+console.log(lengthOfFour('Gbtr'))
+console.log(lengthOfFour('Gbhr'))
+console.log(lengthOfFour('Gmbr'))
+console.log(lengthOfFour('Gbsr'))
+console.log(lengthOfFour('Gebr'))
+console.log(lengthOfFour('Ghbr'))
+console.log(lengthOfFour.getStrings())
 
-test('test for subtract', () => {
-
-  const result5 = subtract(3, 5);
-
-  const expected = -2;
-
-  if (result5 !== expected) {
-    throw new Error(`Result is not equal expected ${result5} !== ${expected}`);
-  }
-})
-
-function test(message, cb) {
-  try {
-    cb()
-  } catch (e) {
-    console.log(message);
-    console.error(e)
-  }
-}
