@@ -1,6 +1,6 @@
 const { sum, subtract, fetchUser, getPlan, addCssClass, removeCssClass } = require('./functions');
 
-describe('Math functions', () => { //describe використовується для групування тестів
+describe.skip('Math functions', () => { //describe використовується для групування тестів
   test('sum test', () => {
     expect(sum(2, 4)).toBe(6)
   })
@@ -139,16 +139,36 @@ describe('addCssClass new Set/add/delete', () => {
 
 })
 describe('removeCssClass', () => {
-  test('should remove class', () => {
+  test('should remove class', () => { //only, виконаємо тільки його, всі остальні пропустимо(можна і для дескрайбу)
     const el = {
       className: 'joke jobs'
     };
-  
+
     removeCssClass(el, 'jobs')
-  
+
     expect(el.className).toBe('joke')
   })
-  
+
+  test.skip('should remove class', () => { //skip, jest пропустит тест(можна і для дескрайбу)
+    const el = {
+      className: '  joke   jobs'
+    };
+
+    removeCssClass(el, 'jobs')
+
+    expect(el.className).toBe('joke')
+  })
+
+  it('should remove duplicates', () => { //це синонім для jest і він сприймає це як test
+    const el = {
+      className: '  joke   jobs joke'
+    };
+
+    removeCssClass(el, 'jobs')
+
+    expect(el.className).toBe('joke')
+  })
+
 })
 
 
