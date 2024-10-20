@@ -20,16 +20,42 @@ function getPlan(startProd, numOfMonth, percent) {
     const result = [];
     let total = startProd; 
 
+    if (startProd === 0 || percent <= 0) {
+        return null;
+    }
+
     for (let i = 0; i < numOfMonth; i++) {
-        total += (total * percent / 100)
+        total += Math.floor(total * percent / 100)
         result.push(total)
     }
 
     return result;
   }
 
+  function addCssClass(element, classToAdd) {
+    let count = 0;
 
-module.exports = { sum, subtract, fetchUser, getPlan }
+    const words = element.className.split(' ');
+    for (let word of words) {
+        if (word === classToAdd) {
+            count++
+        }
+    }
+
+    if (count === 0) {
+      element.className += ' ' + classToAdd;
+    }
+  }
+
+  const el = {
+    className: 'joke new'
+  };
+
+  addCssClass(el, 'active')
+  addCssClass(el, 'new')
+
+
+module.exports = { sum, subtract, fetchUser, getPlan, addCssClass }
 
 
 

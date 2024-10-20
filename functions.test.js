@@ -1,4 +1,4 @@
-const { sum, subtract, fetchUser, getPlan } = require('./functions');
+const { sum, subtract, fetchUser, getPlan, addCssClass } = require('./functions');
 
 test('sum test', () => {
     expect(sum(2, 4)).toBe(6)
@@ -14,7 +14,7 @@ test('user data', async () => {
 })
 
 test('Should be an array', () => {
-    const result = getPlan()
+    const result = getPlan();
 
     expect(result).toBeInstanceOf(Array)
     // expect(typeof result).toBe('number')
@@ -34,3 +34,60 @@ test('Should have expected values', () => {
 })
 //toEqual
 //Используется для проверки, равны ли два объекта или массива по содержимому.
+
+test('Should return null for 0 prod', () => {
+    const result = getPlan(0, 4, 100);
+
+    expect(result).toBe(null)
+})
+
+test('Should return null for 0 percent', () => {
+    const result = getPlan(200, 4, 0);
+
+    expect(result).toBe(null)
+})
+
+test('Should return 0 for 0 numOfMonth', () => {
+    const result = getPlan(200, 0, 100);
+
+    expect(result).toEqual([])
+})
+
+test('Should return result with Math.floor(rounds)', () => {
+    const result = getPlan(10, 3, 30);
+
+    expect(result).toEqual([13, 16, 20]);
+})
+
+test('should add class name', () => {  
+  const el = {
+    className: 'joke new'
+  };
+
+  addCssClass(el, 'active')
+
+  expect(el.className).toBe('joke new active')
+})
+
+test('should check already existed class name', () => {  
+  const el = {
+    className: 'joke new'
+  };
+
+  addCssClass(el, 'new')
+
+  expect(el.className).toBe('joke new')
+})
+
+test('should check already existed class name in class name', () => {  
+  const el = {
+    className: 'joke new'
+  };
+
+  addCssClass(el, 'ok')
+
+  expect(el.className).toBe('joke new ok')
+})
+
+//Дані -> екшн -> перевірка(чи дії з данними, 
+//які ми підготували задовільняє наші очікування
