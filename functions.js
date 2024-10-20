@@ -18,7 +18,7 @@ function fetchUser() {
 
 function getPlan(startProd, numOfMonth, percent) {
     const result = [];
-    let total = startProd; 
+    let total = startProd;
 
     if (startProd === 0 || percent <= 0) {
         return null;
@@ -30,32 +30,35 @@ function getPlan(startProd, numOfMonth, percent) {
     }
 
     return result;
-  }
+}
 
-  function addCssClass(element, classToAdd) {
-    let count = 0;
+function addCssClass(element, classToAdd) {
+    const classes = new Set(element.className.split(' '))
+    classes.delete('');
 
-    const words = element.className.split(' ');
-    for (let word of words) {
-        if (word === classToAdd) {
-            count++
-        }
-    }
+    classes.add(classToAdd)
+    // element.className = element.className
+    // .trim()
+    // .replace(/ +/g, ' ') 
+    // // буде заміняти всі пробіли від одного і більше... на один(дуже зручно)
 
-    if (count === 0) {
-      element.className += ' ' + classToAdd;
-    }
-  }
+    // if (element.className.split(' ').includes(classToAdd)) {
+    //     return
+    // }
 
-  const el = {
-    className: 'joke new'
-  };
+    // element.className += ` ${classToAdd}`;
+    element.className = [...classes].join(' ');
+}
 
-  addCssClass(el, 'active')
-  addCssClass(el, 'new')
+function removeCssClass(element, classToRemove) {
+    const classes = new Set(element.className.split(' '))
+    classes.delete('');
+    classes.delete(classToRemove);
+    element.className = [...classes].join(' '); 
+}
 
 
-module.exports = { sum, subtract, fetchUser, getPlan, addCssClass }
+module.exports = { sum, subtract, fetchUser, getPlan, addCssClass, removeCssClass }
 
 
 
