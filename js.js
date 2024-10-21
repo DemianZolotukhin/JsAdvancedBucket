@@ -1246,3 +1246,4 @@ console.log(lengthOfFour('Gebr'))
 console.log(lengthOfFour('Ghbr'))
 console.log(lengthOfFour.getStrings())
 
+

@@ -1,4 +1,4 @@
-const { sum, subtract, fetchUser, getPlan, addCssClass, removeCssClass } = require('./functions');
+const { sum, subtract, fetchUser, getPlan, addCssClass, removeCssClass, slice } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
   test('sum test', () => {
@@ -168,11 +168,143 @@ describe('removeCssClass', () => {
 
     expect(el.className).toBe('joke')
   })
-
 })
 
+describe('tests with toThrow()', () => {
+  it('should throw an error if params are invalid', () => {
+    const el = {
+    };
 
+    expect(() => removeCssClass(el, 'jobs')).toThrow()
+  })
 
+  it('should throw an error if params are invalid', () => {
+    const el = {
+      className: 1
+    };
 
+    expect(() => removeCssClass(el, 'jobs')).toThrow()
+  })
+})
 
+describe(`jsDoc/snippets/debug/'slice' fucntion tests`, () => {
+  it('slice should return value(from start index to end)'+
+  'if end index is not present', () => {
+    expect(slice('thermaltake', 2)).toBe('ermaltake');
+  })
 
+  it('slice should work with Negative begin index', () => {
+    expect(slice('thermaltake', -1)).toBe('e');
+  })
+
+  it('slice should work with Negative end and positive begin indexes', () => {
+    expect(slice('thermaltake', 4, -1)).toBe('maltak');
+  })
+
+  it('slice should work with Negative end and begin indexes', () => {
+    expect(slice('thermaltake', -5, -1)).toBe('ltak');
+  })
+  
+  it(`cuts from 'begin' to 'end'`, () => {
+    const result = slice('0123456789', 3, 8)
+    expect(result).toBe('34567');
+  });
+
+  it(`cuts from 'begin' without 'end'` , () => {
+    const result = slice('0123456789', 3)    
+
+    expect(result).toBe('3456789');
+  });
+
+  //Назви для зручності варто створювати короткими
+
+  it(`cuts without 'begin' and 'end'` , () => {
+    const result = slice('0123456789')    
+
+    expect(result).toBe('0123456789');
+  });
+
+  it(`begin < 0 end > 0` , () => {
+    const result = slice('0123456789', -4, 9)    
+
+    expect(result).toBe('678');
+  });
+
+  it(`begin > 0 end < 0` , () => {
+    const result = slice('0123456789', 3, -3)    
+
+    expect(result).toBe('3456');
+  });
+
+  it(`begin < 0 end < 0` , () => {
+    const result = slice('0123456789', -6, -3)    
+
+    expect(result).toBe('456');
+  });
+
+  it(`begin < 0 without end` , () => {
+    const result = slice('0123456789', -6,)    
+
+    expect(result).toBe('456789');
+  });
+
+  it(`begin > input.length` , () => {
+    const result = slice('0123456789', 17,)    
+
+    expect(result).toBe('');
+  });
+
+  it(`begin > 0 and end > input.length` , () => {
+    const result = slice('0123456789', 2, 18)    
+
+    expect(result).toBe('23456789');
+  });
+
+  it(`begin < end` , () => {
+    const result = slice('0123456789', 4, 2)    
+
+    expect(result).toBe('');
+  });
+
+  it(`begin too small` , () => {
+    const result = slice('0123456789', -25)    
+
+    expect(result).toBe('0123456789');
+  });
+
+  it(`begin too small, end to small` , () => {
+    const result = slice('0123456789', -25, -15)    
+
+    expect(result).toBe('');
+  });
+  
+  it(`Begin === NaN` , () => {
+    const result = slice('0123456789', NaN)    
+
+    expect(result).toBe('0123456789');
+  });
+
+  it(`End === NaN` , () => {
+    const result = slice('0123456789', 2, NaN)    
+
+    expect(result).toBe('23456789');
+  });
+
+  it(`Begin with deimal part` , () => {
+    const result = slice('0123456789', 2.5)    
+
+    expect(result).toBe('23456789');
+  });
+  
+  it(`Begin > 0 and end with deimal part` , () => {
+    const result = slice('0123456789', 2, 8.7)    
+
+    expect(result).toBe('234567');
+  });
+
+  it(`Begin === negative number and with deimal part` , () => {
+    const result = slice('0123456789', -6.4, -3.3)    
+
+    expect(result).toBe('456');
+  });
+})
