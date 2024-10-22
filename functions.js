@@ -108,7 +108,7 @@ function slice(input, begin = 0, end = input.length) {
 * @returns {number[]}
 */
 function getCoinCombination(cents) {
-    if (cents <= 0) {
+    if (cents < 0) {
         throw new Error('Please enter number of cents');
     }
 
