@@ -1,4 +1,4 @@
-const { sum, subtract, fetchUser, getPlan, addCssClass, removeCssClass, slice, getCoinCombination } = require('./functions');
+const { sum, subtract, fetchUser, getPlan, addCssClass, removeCssClass, slice, getCoinCombination, isIsogram, restoreNames, fillTank } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
   test('sum test', () => {
@@ -374,3 +374,223 @@ describe(`test getCoinCombination function`, () => {
     expect(() => getCoinCombination(undefined)).toThrow();
   });
 });
+
+describe(`test isIsogram function`, () => {
+  it(`'isIsogram' should return true if argument = ''`, () => {
+    expect(isIsogram('')).toBeTruthy();
+  });
+
+  it(`'isIsogram' should return false if argument = 'llll'`, () => {
+    expect(isIsogram('llll')).toBeFalsy();
+  });
+
+  it(`'isIsogram' should return false if argument = 'Ll'`, () => {
+    expect(isIsogram('Ll')).toBeFalsy();
+  });
+
+  it(`'isIsogram' should return true if argument = one letter (L)`, () => {
+    expect(isIsogram('L')).toBeTruthy();
+  });
+
+  it(`'isIsogram' should return true if argument = 'AbCOk'`, () => {
+    expect(isIsogram('AbCOk')).toBeTruthy();
+  });
+
+  it(`'isIsogram' should return error message if argument = NaN`, () => {
+    expect(() => isIsogram(NaN)).toThrow();
+  });
+
+  it(`'isIsogram' should return error message if argument = undefined`, () => {
+    expect(() => isIsogram(undefined)).toThrow();
+  });
+  it(`'isIsogram' should return if argument = one letter (l)`, () => {
+    expect(isIsogram('l')).toBeTruthy();
+  });
+})
+
+describe(`'restoreNames' function test`, () => {
+
+  it(`'restoreNames should update firstName`
+  +` from undefined to the correct value'`, () => {
+    const users = [
+      {
+        firstName: undefined,
+        lastName: 'Holy',
+        fullName: 'Jack Holy',
+      },
+    ];
+
+    restoreNames(users)
+
+    expect(users[0].firstName).toBe('Jack')
+  });
+
+  it(`'restoreNames should create firstName`
+  +` key with "Name" as a value`, () => {
+    const users = [
+      {
+        lastName: 'Adams',
+        fullName: 'Mike Adams',
+      },
+    ];
+
+    restoreNames(users)
+
+    expect(users[0].firstName).toBe('Mike')
+  });
+
+  it(`'restoreNames should not change`
+  +` firstName if it has value`, () => {
+    const users = [
+      {
+        firstName: 'Andrei',
+        lastName: 'Adams',
+        fullName: 'Mike Adams',
+      },
+    ];
+
+    restoreNames(users)
+
+    expect(users[0].firstName).toBe('Andrei')
+  });
+
+  it(`'restoreNames should not change`
+  +` firstName if there is no fullName`, () => {
+    const users = [
+      {
+        firstName: 'Andrei',
+        lastName: 'Adams',
+      },
+    ];
+
+    restoreNames(users)
+
+    expect(users[0].firstName).toBe('Andrei')
+  });
+
+  it(`'restoreNames should change`
+  +` firstName if there is fullName has three words`, () => {
+    const users = [
+      {
+        lastName: 'Adams',
+        fullName: 'Mike Simon Adams'
+      },
+    ];
+
+    restoreNames(users)
+
+    expect(users[0].firstName).toBe('Mike')
+  });
+
+  it(`'restoreNames should handle empty user array`, () => {
+    const users = [];
+
+    restoreNames(users)
+
+    expect(users).toEqual([])
+  });
+
+});
+
+describe(`'fillTank'`, () => {
+  it(`should not change fuelRemains if user has no money`, () => {
+    const customer1 = {
+      money: 0, // залишок грошей на рахунку клієнта
+      vehicle: {
+        maxTankCapacity: 40, // Об'єм бака
+        fuelRemains: 0, // Залишок палива у баку
+      }
+    }
+
+    fillTank(customer1, 10, 5);
+
+    expect(customer1.vehicle.fuelRemains).toBe(0)
+  });
+
+  it(`User.money should not change more`
+  +` than the cost of filling up to maxTankCapacity`, () => {
+    const customer1 = {
+      money: 50, 
+      vehicle: {
+        maxTankCapacity: 40, 
+        fuelRemains: 20,
+      }
+    }
+
+    fillTank(customer1, 1, 40);
+
+    expect(customer1.money).toBe(30)
+  });
+
+  it(`should change fuelRemains to maxTankCapacity`, () => {
+    const customer1 = {
+      money: 100,
+      vehicle: {
+        maxTankCapacity: 40, 
+        fuelRemains: 0, 
+      }
+    }
+
+    fillTank(customer1, 1);
+
+    expect(customer1.vehicle.fuelRemains).toBe(40)
+  });
+
+  it(`should change fuelRemains to amount of fuel that user can buy`, () => {
+    const customer1 = {
+      money: 20, 
+      vehicle: {
+        maxTankCapacity: 40,
+        fuelRemains: 0, 
+      }
+    }
+
+    fillTank(customer1, 1, 35);
+
+    expect(customer1.vehicle.fuelRemains).toBe(20)
+  });
+
+  it(`should not change fuelRemains if amount of fuels < 2`, () => {
+    const customer1 = {
+      money: 20, 
+      vehicle: {
+        maxTankCapacity: 40,
+        fuelRemains: 0, 
+      }
+    }
+
+    fillTank(customer1, 1, 1);
+
+    expect(customer1.vehicle.fuelRemains).toBe(0)
+  });
+
+  it(`should change fuelRemains to decimal`
+  +` value if amount = decimal number`, () => {
+    const customer1 = {
+      money: 20,
+      vehicle: {
+        maxTankCapacity: 40, 
+        fuelRemains: 0, 
+      }
+    }
+
+    fillTank(customer1, 1, 5.64);
+
+    expect(customer1.vehicle.fuelRemains).toBe(5.6)
+  });
+
+  it(`should change customer.money to decimal`
+  +` value if fuelPrice = decimal number and amount = decimal number`, () => {
+    const customer1 = {
+      money: 20,
+      vehicle: {
+        maxTankCapacity: 40, 
+        fuelRemains: 0, 
+      }
+    }
+
+    fillTank(customer1, 1.26, 5.64);
+
+    expect(customer1.money).toBe(12.94)
+  });
+})

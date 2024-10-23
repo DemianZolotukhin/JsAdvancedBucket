@@ -114,7 +114,7 @@ function getCoinCombination(cents) {
 
     if (typeof cents !== 'number' || isNaN(cents) || !isFinite(cents)) {
         throw new Error('Invalid input: must be a finite number');
-      }
+    }
 
     let currentAmount = cents;
     const values = [1, 5, 10, 25];
@@ -128,9 +128,92 @@ function getCoinCombination(cents) {
     return coins;
 }
 
+/**
+ * @param {string} word
+ *
+ * @returns {boolean}
+ */
+function isIsogram(word) {
+    const wordToLower = word.toLowerCase();
+
+    for (let i = 0; i < wordToLower.length; i++) {
+        const letter = wordToLower[i];
+
+        if (wordToLower.includes(letter, i + 1)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+* @typedef {Object} User
+* @property {string} firstName
+* @property {string} lastName
+* @property {string} fullName
+*
+* @param {User[]} users
+*/
+function restoreNames(users) {
+    for (const user of users) {
+        if (!user.firstName) {
+            [user.firstName] = user.fullName.split(' ');
+        }
+    }
+}
+
+/**
+* @typedef {Object} Vehicle
+* @property {number} maxTankCapacity
+* @property {number} fuelRemains
+*
+* @typedef {Object} Customer
+* @property {number} money
+* @property {Vehicle} vehicle
+*
+* @param {Customer} customer
+* @param {number} fuelPrice
+* @param {number} amount
+*/
+function fillTank(customer, fuelPrice, amount = Infinity) {
+    const { vehicle } = customer;
+    const freeSpace = vehicle.maxTankCapacity - vehicle.fuelRemains;
+    const canBuy = customer.money / fuelPrice;
+    const requiredAmount = Math.min(amount, freeSpace, canBuy);
+    const roundedAmount = roundFuel(requiredAmount);
+
+    if (roundedAmount < 2) {
+        return;
+    }
+
+    customer.vehicle.fuelRemains += roundedAmount;
+    customer.money -= roundPrice(roundedAmount * fuelPrice);
+    customer.money = +customer.money.toFixed(2)
+}
+
+function roundFuel(fuel) {
+    return Math.floor(fuel * 10) / 10; //5.64 * 10 / 10
+}
+
+function roundPrice(price) {
+    return Math.round(price * 100) / 100;
+}
 
 
-module.exports = { sum, subtract, fetchUser, getPlan, addCssClass, removeCssClass, slice, getCoinCombination }
+module.exports = {
+    sum,
+    subtract,
+    fetchUser,
+    getPlan,
+    addCssClass,
+    removeCssClass,
+    slice,
+    getCoinCombination,
+    isIsogram,
+    restoreNames,
+    fillTank
+}
 
 
 
