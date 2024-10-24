@@ -13,6 +13,7 @@ const {
   arrayReverse,
   isPasswordActual,
   forEach,
+  filter,
  } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
@@ -707,6 +708,17 @@ describe(`Function 'isPasswordActual':`, () => {
 });
 
 describe(`forEach/Mock using jest.fn`, () => {
+  beforeEach(() => {
+    Array.prototype.forEach2 = forEach
+  })
+
+  afterEach(() => {
+    delete Array.prototype.forEach2;
+  })
+
+  // beforeAll(() => {})
+  // afterAll(() => {})
+
   it('should call a callback once per item', () => {
     // const items = [1, 2, 3];
 
@@ -719,7 +731,7 @@ describe(`forEach/Mock using jest.fn`, () => {
 
     const f = jest.fn()
 
-    forEach(items, f)
+    items.forEach2(f)
     expect(f).toHaveBeenCalledTimes(4)
   });
 
@@ -729,8 +741,9 @@ describe(`forEach/Mock using jest.fn`, () => {
     // const f = () => { count++ }
 
     const f = jest.fn()
+    const arr = [];
 
-    forEach([], f)
+    arr.forEach2(f);
     expect(f).not.toHaveBeenCalled()
   });
 
@@ -747,7 +760,7 @@ describe(`forEach/Mock using jest.fn`, () => {
 
     const f = jest.fn()
 
-    forEach(items, f)
+    items.forEach2(f)
 
     expect(f.mock.calls[0]).toEqual([1, 0, [1, 2, 3]])
     expect(f).toHaveBeenCalledWith(2, 1, [1, 2, 3])// в цьому випадку ми не маємо інфи 
@@ -759,5 +772,85 @@ describe(`forEach/Mock using jest.fn`, () => {
   
   it('should return undefined', () => {
     expect(forEach([], () => {})).toBeUndefined()
+  });
+})
+
+describe(`filter/Mock using jest.fn`, () => {
+  beforeEach(() => {
+    Array.prototype.filter2 = filter;
+  })
+
+  afterEach(() => {
+    delete Array.prototype.filter2;
+  })
+
+  // beforeAll(() => {})
+  // afterAll(() => {})
+
+  it('should call a callback once per item', () => {
+    const items = [1, 2, 3, 4];
+
+    const f = jest.fn()
+
+    items.filter2(f)
+    expect(f).toHaveBeenCalledTimes(4)
+  });
+
+  it('should not call a callback for an empty array', () => {
+    const f = jest.fn()
+    const arr = [];
+
+    arr.filter2(f);
+    expect(f).not.toHaveBeenCalled()
+  });
+
+  it('should pass an element, an index and an array to a callback', () => {
+    const items = [1, 2, 3];
+
+    const f = jest.fn()
+
+    items.filter2(f)
+
+    expect(f.mock.calls[0]).toEqual([1, 0, [1, 2, 3]])
+    expect(f).toHaveBeenCalledWith(2, 1, [1, 2, 3])// в цьому випадку ми не маємо інфи 
+    //коли саме було викликано функцію, знаємо тільки сам факт виклику 
+
+    expect(f).toHaveBeenNthCalledWith(3, 3, 2, [1, 2, 3]) //перше число відображає виклик (від 1 починається відлік)
+    //в цьому випадку ми перевіряємо в який раз було викликано функцію
+  });
+
+  it('should return all elements if cb is true', () => {
+    const items = [1, 2, 3];
+
+    const f = jest.fn(() => true); // тут зберігається інформація про виклики, яка може знадобитися при тестуванні
+
+    const result = items.filter2(f)
+
+    expect(result).toEqual([1, 2, 3])
+  });
+
+  it('should return [] if cb is false', () => {
+    const items = [];
+
+    const f = jest.fn(() => false); // тут зберігається інформація про виклики, яка може знадобитися при тестуванні
+
+    const result = items.filter2(f)
+
+    expect(result).toEqual([])
+  });
+
+  it('should return some elements based on callback result', () => {
+    const items = [1, 2, 3, 4, 5, 6];
+
+    const f = jest.fn((item) => false) // для всіх остальних результат буде false
+    .mockReturnValueOnce(true)// повертає один елемент
+    .mockReturnValueOnce(true)// повертає один елемент
+    .mockReturnValueOnce(false)// повертає один елемент
+    .mockReturnValueOnce(true)// повертає один елемент
+    // тут зберігається інформація про виклики, яка може знадобитися при тестуванні
+
+    const result = items.filter2(f)
+
+    expect(result).toEqual([1, 2, 4])
   });
 })

@@ -242,10 +242,21 @@ function isPasswordActual(year, month, date) {
     return 'Password is actual.';
   }
 
-function forEach(items, callback) {
-    for (let i = 0; i < items.length; i++) {
-        callback(items[i], i, items);
+function forEach(callback) {
+    for (let i = 0; i < this.length; i++) {
+        callback(this[i], i, this);
     }
+}
+
+function filter(callback) {
+    const result = [];
+    for (let i = 0; i < this.length; i++) {
+        if (callback(this[i], i, this)) {
+            result.push(this[i])
+        }
+    }
+
+    return result
 }
 
 module.exports = {
@@ -263,6 +274,7 @@ module.exports = {
     arrayReverse,
     isPasswordActual,
     forEach,
+    filter,
 }
 
 

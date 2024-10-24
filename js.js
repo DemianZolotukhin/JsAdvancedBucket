@@ -1221,7 +1221,7 @@ function isPasswordActual(year, month, date) {
   if (typeof (year) !== 'number' || typeof (month) !== 'number'
   || typeof (date) !== 'number') {
     throw new Error('Enter valid datat');
-  }
+  }   
 
   const actualDate = new Date(Date.now()).getTime();
   const lastEditedDate = new Date(year, month - 1, date).getTime();
