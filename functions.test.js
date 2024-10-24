@@ -1,4 +1,19 @@
-const { sum, subtract, fetchUser, getPlan, addCssClass, removeCssClass, slice, getCoinCombination, isIsogram, restoreNames, fillTank } = require('./functions');
+const { 
+  sum,
+  subtract,
+  fetchUser, 
+  getPlan, 
+  addCssClass, 
+  removeCssClass, 
+  slice, 
+  getCoinCombination, 
+  isIsogram, 
+  restoreNames, 
+  fillTank,
+  arrayReverse,
+  isPasswordActual,
+  forEach,
+ } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
   test('sum test', () => {
@@ -592,5 +607,157 @@ describe(`'fillTank'`, () => {
     fillTank(customer1, 1.26, 5.64);
 
     expect(customer1.money).toBe(12.94)
+  });
+})
+
+describe(`Function 'arrayReverse':`, () => {
+  // const arrayReverse = require('./arrayReverse');
+
+  it(`should be declared`, () => {
+    expect(arrayReverse).toBeInstanceOf(Function);
+  });
+
+  it(`should return an array`, () => {
+
+  });
+
+  it(`should return an empty string
+    if original array consists of an empty string`, () => {
+    expect(arrayReverse(['Mate', 'Academy'])).toEqual(['ymed', 'acAetaM']);
+  });
+
+  it(`should return an array with same length
+  as original array length`, () => {
+    const arrLength = arrayReverse(['Mate', 'Academy'])
+  expect(arrLength.length).toBe(2);
+  });
+
+  it(`should not change length of strings in array after reverse`, () => {
+    const arrLength = arrayReverse(['Mate', 'Academy'])
+  expect(arrLength[0].length).toBe(4);
+  });
+
+  it(`should return empty array if empty array used as an argument`, () => {
+    const arrLength = arrayReverse([])
+  expect(arrLength).toEqual([]);
+  });
+
+  it(`should return error message if the 
+  function does not take an argument`, () => {
+  expect(() => arrayReverse()).toThrow();
+  });
+ 
+});
+
+describe(`Function 'isPasswordActual':`, () => {
+  // const isPasswordActual = require('./isPasswordActual');
+  const date = new Date(Date.now());
+  const today = {
+    year: date.getUTCFullYear(),
+    month: date.getMonth() + 1,
+    date: date.getDate(),
+  };
+
+  it(`should be declared`, () => {
+    expect(isPasswordActual).toBeInstanceOf(Function);
+  });
+
+  it(`should return a string`, () => {
+
+  });
+
+  it(`should ask to change the password if was changed a year ago`, () => {
+    const lastYear = isPasswordActual(today.year - 1, today.month, today.date);
+
+    expect(lastYear)
+      .toBe('Immediately change the password!');
+  });
+
+  it(`should return 'Password is actual' 
+  message if func has no argument`, () => {
+    const lastYear = isPasswordActual();
+  
+    expect(lastYear)
+      .toBe('Password is actual.');
+  });
+
+  it(`should return 'You should change your password.' 
+  if last password update < 60 days ago`, () => {
+    const lastYear = isPasswordActual(2024, 8, 25);
+
+    expect(lastYear)
+      .toBe('You should change your password.');
+  });
+
+  it(`should return 'Password is actual' 
+  if one of arguments is missing`, () => {
+    const lastYear = isPasswordActual(2024, 8);
+  
+    expect(lastYear)
+      .toBe('Password is actual.');
+  });
+
+  it(`should return 'Password is actual' 
+  if string used as argument`, () => {
+    const lastYear = isPasswordActual('20g4', '8', '6');
+  
+    expect(lastYear)
+      .toBe('Password is actual.');
+  });
+});
+
+describe(`forEach/Mock using jest.fn`, () => {
+  it('should call a callback once per item', () => {
+    // const items = [1, 2, 3];
+
+    // let count = 0;
+
+    // const f = () => { count++ }
+    // forEach(items, f)
+    // expect(count).toBe(3)
+    const items = [1, 2, 3, 4];
+
+    const f = jest.fn()
+
+    forEach(items, f)
+    expect(f).toHaveBeenCalledTimes(4)
+  });
+
+  it('should not call a callback for an empty array', () => {
+    // let count = 0;
+
+    // const f = () => { count++ }
+
+    const f = jest.fn()
+
+    forEach([], f)
+    expect(f).not.toHaveBeenCalled()
+  });
+
+  it('should pass an element, an index and an array to a callback', () => {
+    // const items = [1, 2, 3];
+
+    // let cbArgs = [];
+
+    // const f = (...args) => { 
+    //   cbArgs.push(args)
+    // }
+
+    const items = [1, 2, 3];
+
+    const f = jest.fn()
+
+    forEach(items, f)
+
+    expect(f.mock.calls[0]).toEqual([1, 0, [1, 2, 3]])
+    expect(f).toHaveBeenCalledWith(2, 1, [1, 2, 3])// в цьому випадку ми не маємо інфи 
+    //коли саме було викликано функцію, знаємо тільки сам факт виклику 
+
+    expect(f).toHaveBeenNthCalledWith(3, 3, 2, [1, 2, 3]) //перше число відображає виклик (від 1 починається відлік)
+    //в цьому випадку ми перевіряємо в який раз було викликано функцію
+  });
+  
+  it('should return undefined', () => {
+    expect(forEach([], () => {})).toBeUndefined()
   });
 })

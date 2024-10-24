@@ -1217,33 +1217,37 @@ console.log(
   new Date('2023-09-23'),
 );
 
-function getPlan() {
-  const arrayOfStrings = [];
-
-  const arr = (string) => {
-      const stringLenght = string.length;
-      arrayOfStrings.push({
-          [string]: stringLenght
-      });
+function isPasswordActual(year, month, date) {
+  if (typeof (year) !== 'number' || typeof (month) !== 'number'
+  || typeof (date) !== 'number') {
+    throw new Error('Enter valid datat');
   }
 
-  arr.getStrings = () => arrayOfStrings;
+  const actualDate = new Date(Date.now()).getTime();
+  const lastEditedDate = new Date(year, month - 1, date).getTime();
+  const diff = actualDate - lastEditedDate;
 
-  return arr;
+  console.log(`lastEditedDate:`, lastEditedDate)
+  console.log(`diff:`, diff)
+  console.log(`actualDate:`, actualDate)
+
+  const days = Math.floor(diff / (60 * 60 * 24 * 1000));
+  console.log(`days:`, days);
+
+  if (days > 60) {
+    return 'Immediately change the password!';
+  }
+
+  if (days > 30) {
+    return 'You should change your password.';
+  }
+
+  return 'Password is actual.';
 }
 
-const lengthOfFour = getPlan();
+const testDate = isPasswordActual(2024, 8,);
 
-console.log(lengthOfFour('Gbbr'))
-console.log(lengthOfFour.getStrings())
+console.log(`testDate:`, testDate)
+const nt = NaN > 245
 
-
-console.log(lengthOfFour('Gbtr'))
-console.log(lengthOfFour('Gbhr'))
-console.log(lengthOfFour('Gmbr'))
-console.log(lengthOfFour('Gbsr'))
-console.log(lengthOfFour('Gebr'))
-console.log(lengthOfFour('Ghbr'))
-console.log(lengthOfFour.getStrings())
-
-
+console.log(nt)

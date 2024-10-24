@@ -200,6 +200,53 @@ function roundPrice(price) {
     return Math.round(price * 100) / 100;
 }
 
+/**
+ * @param {string[]} words
+ *
+ * @returns {string[]}
+ */
+function arrayReverse(words) {
+    let start = 0;
+    const whole = words.join('').split('').reverse().join('');
+  
+    for (let i = 0; i < words.length; i++) {
+      words[i] = whole.slice(start, start + words[i].length);
+      start += words[i].length;
+    }
+  
+    return words;
+  }
+  
+  /**
+ * @param {number} year
+ * @param {number} month
+ * @param {number} date
+ *
+ * @returns {string}
+ */
+function isPasswordActual(year, month, date) {
+    const actualDate = new Date(Date.now()).getTime();
+    const lastEditedDate = new Date(year, month - 1, date).getTime();
+    const diff = actualDate - lastEditedDate;
+  
+    const days = Math.floor(diff / (60 * 60 * 24 * 1000));
+  
+    if (days > 60) {
+      return 'Immediately change the password!';
+    }
+  
+    if (days > 30) {
+      return 'You should change your password.';
+    }
+  
+    return 'Password is actual.';
+  }
+
+function forEach(items, callback) {
+    for (let i = 0; i < items.length; i++) {
+        callback(items[i], i, items);
+    }
+}
 
 module.exports = {
     sum,
@@ -212,7 +259,10 @@ module.exports = {
     getCoinCombination,
     isIsogram,
     restoreNames,
-    fillTank
+    fillTank,
+    arrayReverse,
+    isPasswordActual,
+    forEach,
 }
 
 
