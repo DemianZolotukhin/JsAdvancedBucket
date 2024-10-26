@@ -284,6 +284,20 @@ const bankApi = {
     }
 };
 
+/**
+ * @param condition
+ * @param first
+ * @param second
+ */
+function ifElse(condition, first, second) {
+    if (condition() === true) {
+      first();
+    } else {
+      second();
+    }
+  }
+  
+
 module.exports = {
     sum,
     subtract,
@@ -302,6 +316,7 @@ module.exports = {
     filter,
     BankAccount,
     bankApi,
+    ifElse,
 }
 
 

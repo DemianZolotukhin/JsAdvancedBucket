@@ -16,6 +16,7 @@ const {
   filter,
   BankAccount,
   bankApi,
+  ifElse,
  } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
@@ -873,5 +874,83 @@ describe(`BankAccount/using spyOn`, () => {
     testAccount.pay('Other account', 50)
 
     expect(bankApi.transfer).toHaveBeenCalled();
+  });
+
+  it('should throw Error when balance < amount to sent', () => {
+    const testAccount = new BankAccount('My account', 30);
+
+    expect(() => testAccount.pay('Other account', 50)).toThrow()
+    expect(bankApi.transfer).not.toHaveBeenCalled();
+  });
+});
+
+// jest.mock(./bankApi.js, () => {
+//   return {
+//     bankApi: {
+//       transfer: jest.fn()
+//     }
+//   }
+// });
+
+// describe(`BankAccount/using jest.mock`, () => {
+
+//   it('should send transfer request', () => {
+//     const testAccount = new BankAccount('My account', 100);
+
+//     testAccount.pay('Other account', 50)
+
+//     expect(bankApi.transfer).toHaveBeenCalled();
+//   });
+// });
+
+// module
+// export function greet(name) {
+//   return `Hello, ${name}!`;
+// }
+
+
+// // test
+// import { greet } from './module';
+
+// jest.mock('./module', () => ({
+//   greet: jest.fn(() => 'Mock greeting'),
+// }));
+
+// test('greet returns the mock greeting', () => {
+//   expect(greet('Alice')).toEqual('Mock greeting');
+// });
+
+describe('ifElse', () => {
+
+  it(`should call a 'first' function if 'condition' return is true`, () => {
+    const condition = jest.fn(() => true)
+    const first = jest.fn()
+    const second = jest.fn()
+
+    ifElse(condition, first, second)
+
+    expect(first).toHaveBeenCalledTimes(1)
+    expect(second).toHaveBeenCalledTimes(0)
+  });
+
+  it(`should call a 'second' function if 'condition' return is false`, () => {
+    const condition = jest.fn(() => false)
+    const first = jest.fn()
+    const second = jest.fn()
+
+    ifElse(condition, first, second)
+
+    expect(second).toHaveBeenCalledTimes(1)
+    expect(first).toHaveBeenCalledTimes(0)
+  });
+
+  it(`should call a 'condition' function without arguments`, () => {
+    const condition = jest.fn(() => {})
+    const first = jest.fn()
+    const second = jest.fn()
+
+    ifElse(condition, first, second)
+
+    expect(condition).toHaveBeenCalledTimes(1)
   });
 });
