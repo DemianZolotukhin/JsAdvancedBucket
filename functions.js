@@ -259,6 +259,31 @@ function filter(callback) {
     return result
 }
 
+class BankAccount {
+    constructor(accountNumber, balance) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
+    pay(toNumber, amount) {
+        if (amount < 0) {
+            throw new Error(`Amount can't be negative`);
+        }
+
+        if (amount > this.balance) {
+            throw new Error(`Not enough money`);
+        }
+
+        bankApi.transfer(this.accountNumber, toNumber, amount)
+    }
+}
+
+const bankApi = {
+    transfer: (fromAccount, toAccount, amount) => {
+        
+    }
+};
+
 module.exports = {
     sum,
     subtract,
@@ -275,6 +300,8 @@ module.exports = {
     isPasswordActual,
     forEach,
     filter,
+    BankAccount,
+    bankApi,
 }
 
 

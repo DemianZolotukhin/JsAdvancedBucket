@@ -14,6 +14,8 @@ const {
   isPasswordActual,
   forEach,
   filter,
+  BankAccount,
+  bankApi,
  } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
@@ -854,3 +856,22 @@ describe(`filter/Mock using jest.fn`, () => {
     expect(result).toEqual([1, 2, 4])
   });
 })
+
+describe(`BankAccount/using spyOn`, () => {
+  beforeEach(() => {
+    jest.spyOn(bankApi, 'transfer')
+    .mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    bankApi.transfer.mockRestore();
+  })
+
+  it('should send transfer request', () => {
+    const testAccount = new BankAccount('My account', 100);
+
+    testAccount.pay('Other account', 50)
+
+    expect(bankApi.transfer).toHaveBeenCalled();
+  });
+});
