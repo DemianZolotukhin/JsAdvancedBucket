@@ -1,14 +1,14 @@
-const { 
+const {
   sum,
   subtract,
-  fetchUser, 
-  getPlan, 
-  addCssClass, 
-  removeCssClass, 
-  slice, 
-  getCoinCombination, 
-  isIsogram, 
-  restoreNames, 
+  fetchUser,
+  getPlan,
+  addCssClass,
+  removeCssClass,
+  slice,
+  getCoinCombination,
+  isIsogram,
+  restoreNames,
   fillTank,
   arrayReverse,
   isPasswordActual,
@@ -17,7 +17,8 @@ const {
   BankAccount,
   bankApi,
   ifElse,
- } = require('./functions');
+  chainer,
+} = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
   test('sum test', () => {
@@ -207,10 +208,10 @@ describe('tests with toThrow()', () => {
 })
 
 describe(`jsDoc/snippets/debug/'slice' fucntion tests`, () => {
-  it('slice should return value(from start index to end)'+
-  'if end index is not present', () => {
-    expect(slice('thermaltake', 2)).toBe('ermaltake');
-  })
+  it('slice should return value(from start index to end)' +
+    'if end index is not present', () => {
+      expect(slice('thermaltake', 2)).toBe('ermaltake');
+    })
 
   it('slice should work with Negative begin index', () => {
     expect(slice('thermaltake', -1)).toBe('e');
@@ -223,106 +224,106 @@ describe(`jsDoc/snippets/debug/'slice' fucntion tests`, () => {
   it('slice should work with Negative end and begin indexes', () => {
     expect(slice('thermaltake', -5, -1)).toBe('ltak');
   })
-  
+
   it(`cuts from 'begin' to 'end'`, () => {
     const result = slice('0123456789', 3, 8)
     expect(result).toBe('34567');
   });
 
-  it(`cuts from 'begin' without 'end'` , () => {
-    const result = slice('0123456789', 3)    
+  it(`cuts from 'begin' without 'end'`, () => {
+    const result = slice('0123456789', 3)
 
     expect(result).toBe('3456789');
   });
 
   //Назви для зручності варто створювати короткими
 
-  it(`cuts without 'begin' and 'end'` , () => {
-    const result = slice('0123456789')    
+  it(`cuts without 'begin' and 'end'`, () => {
+    const result = slice('0123456789')
 
     expect(result).toBe('0123456789');
   });
 
-  it(`begin < 0 end > 0` , () => {
-    const result = slice('0123456789', -4, 9)    
+  it(`begin < 0 end > 0`, () => {
+    const result = slice('0123456789', -4, 9)
 
     expect(result).toBe('678');
   });
 
-  it(`begin > 0 end < 0` , () => {
-    const result = slice('0123456789', 3, -3)    
+  it(`begin > 0 end < 0`, () => {
+    const result = slice('0123456789', 3, -3)
 
     expect(result).toBe('3456');
   });
 
-  it(`begin < 0 end < 0` , () => {
-    const result = slice('0123456789', -6, -3)    
+  it(`begin < 0 end < 0`, () => {
+    const result = slice('0123456789', -6, -3)
 
     expect(result).toBe('456');
   });
 
-  it(`begin < 0 without end` , () => {
-    const result = slice('0123456789', -6,)    
+  it(`begin < 0 without end`, () => {
+    const result = slice('0123456789', -6,)
 
     expect(result).toBe('456789');
   });
 
-  it(`begin > input.length` , () => {
-    const result = slice('0123456789', 17,)    
+  it(`begin > input.length`, () => {
+    const result = slice('0123456789', 17,)
 
     expect(result).toBe('');
   });
 
-  it(`begin > 0 and end > input.length` , () => {
-    const result = slice('0123456789', 2, 18)    
+  it(`begin > 0 and end > input.length`, () => {
+    const result = slice('0123456789', 2, 18)
 
     expect(result).toBe('23456789');
   });
 
-  it(`begin < end` , () => {
-    const result = slice('0123456789', 4, 2)    
+  it(`begin < end`, () => {
+    const result = slice('0123456789', 4, 2)
 
     expect(result).toBe('');
   });
 
-  it(`begin too small` , () => {
-    const result = slice('0123456789', -25)    
+  it(`begin too small`, () => {
+    const result = slice('0123456789', -25)
 
     expect(result).toBe('0123456789');
   });
 
-  it(`begin too small, end to small` , () => {
-    const result = slice('0123456789', -25, -15)    
+  it(`begin too small, end to small`, () => {
+    const result = slice('0123456789', -25, -15)
 
     expect(result).toBe('');
   });
-  
-  it(`Begin === NaN` , () => {
-    const result = slice('0123456789', NaN)    
+
+  it(`Begin === NaN`, () => {
+    const result = slice('0123456789', NaN)
 
     expect(result).toBe('0123456789');
   });
 
-  it(`End === NaN` , () => {
-    const result = slice('0123456789', 2, NaN)    
+  it(`End === NaN`, () => {
+    const result = slice('0123456789', 2, NaN)
 
     expect(result).toBe('23456789');
   });
 
-  it(`Begin with deimal part` , () => {
-    const result = slice('0123456789', 2.5)    
+  it(`Begin with deimal part`, () => {
+    const result = slice('0123456789', 2.5)
 
     expect(result).toBe('23456789');
   });
-  
-  it(`Begin > 0 and end with deimal part` , () => {
-    const result = slice('0123456789', 2, 8.7)    
+
+  it(`Begin > 0 and end with deimal part`, () => {
+    const result = slice('0123456789', 2, 8.7)
 
     expect(result).toBe('234567');
   });
 
-  it(`Begin === negative number and with deimal part` , () => {
-    const result = slice('0123456789', -6.4, -3.3)    
+  it(`Begin === negative number and with deimal part`, () => {
+    const result = slice('0123456789', -6.4, -3.3)
 
     expect(result).toBe('456');
   });
@@ -336,62 +337,62 @@ describe(`test getCoinCombination function`, () => {
   });
 
   it(`'getCoinCombination' should return`
-  + ` error message with Negative number of cents`, () => {
-    expect(() => getCoinCombination(-30)).toThrow();
-  });
+    + ` error message with Negative number of cents`, () => {
+      expect(() => getCoinCombination(-30)).toThrow();
+    });
 
   it(`'getCoinCombination' should return`
-  + ` array of [0, 0, 0, 0] if cents = 0`, () => {
-    expect(getCoinCombination(0)).toEqual([0, 0, 0, 0]);
-  });
+    + ` array of [0, 0, 0, 0] if cents = 0`, () => {
+      expect(getCoinCombination(0)).toEqual([0, 0, 0, 0]);
+    });
 
   it(`'getCoinCombination' should return`
-  + ` array of [0, 1, 0, 1] if cents = 30`, () => {
-    const result = getCoinCombination(30);
+    + ` array of [0, 1, 0, 1] if cents = 30`, () => {
+      const result = getCoinCombination(30);
 
-    expect(result).toEqual([0, 1, 0, 1]);
-  });
-
-  it(`'getCoinCombination' should return`
-  + ` array of [1, 1, 0, 1] if cents = 31`, () => {
-    const result = getCoinCombination(31);
-
-    expect(result).toEqual([1, 1, 0, 1]);
-  });
+      expect(result).toEqual([0, 1, 0, 1]);
+    });
 
   it(`'getCoinCombination' should return`
-  + ` array of [1, 1, 1, 1] if cents = 41`, () => {
-    const result = getCoinCombination(41);
+    + ` array of [1, 1, 0, 1] if cents = 31`, () => {
+      const result = getCoinCombination(31);
 
-    expect(result).toEqual([1, 1, 1, 1]);
-  });
-
-  it(`'getCoinCombination' should return`
-  + ` array of [0, 0, 0, 4] if cents = 100`, () => {
-    const result = getCoinCombination(100);
-
-    expect(result).toEqual([0, 0, 0, 4]);
-  });
+      expect(result).toEqual([1, 1, 0, 1]);
+    });
 
   it(`'getCoinCombination' should return`
-  + ` error message if cents = NaN`, () => {
-    expect(() => getCoinCombination(NaN)).toThrow();
-  });
+    + ` array of [1, 1, 1, 1] if cents = 41`, () => {
+      const result = getCoinCombination(41);
+
+      expect(result).toEqual([1, 1, 1, 1]);
+    });
 
   it(`'getCoinCombination' should return`
-  + ` array of [0, 0, 0, 0] if cents = 0.4 (decimal part)`, () => {
-    expect(getCoinCombination(0.4)).toEqual([0, 0, 0, 0]);
-  });
+    + ` array of [0, 0, 0, 4] if cents = 100`, () => {
+      const result = getCoinCombination(100);
+
+      expect(result).toEqual([0, 0, 0, 4]);
+    });
 
   it(`'getCoinCombination' should return`
-  + ` error message if cents = infinity`, () => {
-    expect(() => getCoinCombination(Infinity)).toThrow();
-  });
+    + ` error message if cents = NaN`, () => {
+      expect(() => getCoinCombination(NaN)).toThrow();
+    });
 
   it(`'getCoinCombination' should return`
-  + ` error message if cents = undefined`, () => {
-    expect(() => getCoinCombination(undefined)).toThrow();
-  });
+    + ` array of [0, 0, 0, 0] if cents = 0.4 (decimal part)`, () => {
+      expect(getCoinCombination(0.4)).toEqual([0, 0, 0, 0]);
+    });
+
+  it(`'getCoinCombination' should return`
+    + ` error message if cents = infinity`, () => {
+      expect(() => getCoinCombination(Infinity)).toThrow();
+    });
+
+  it(`'getCoinCombination' should return`
+    + ` error message if cents = undefined`, () => {
+      expect(() => getCoinCombination(undefined)).toThrow();
+    });
 });
 
 describe(`test isIsogram function`, () => {
@@ -430,76 +431,76 @@ describe(`test isIsogram function`, () => {
 describe(`'restoreNames' function test`, () => {
 
   it(`'restoreNames should update firstName`
-  +` from undefined to the correct value'`, () => {
-    const users = [
-      {
-        firstName: undefined,
-        lastName: 'Holy',
-        fullName: 'Jack Holy',
-      },
-    ];
+    + ` from undefined to the correct value'`, () => {
+      const users = [
+        {
+          firstName: undefined,
+          lastName: 'Holy',
+          fullName: 'Jack Holy',
+        },
+      ];
 
-    restoreNames(users)
+      restoreNames(users)
 
-    expect(users[0].firstName).toBe('Jack')
-  });
+      expect(users[0].firstName).toBe('Jack')
+    });
 
   it(`'restoreNames should create firstName`
-  +` key with "Name" as a value`, () => {
-    const users = [
-      {
-        lastName: 'Adams',
-        fullName: 'Mike Adams',
-      },
-    ];
+    + ` key with "Name" as a value`, () => {
+      const users = [
+        {
+          lastName: 'Adams',
+          fullName: 'Mike Adams',
+        },
+      ];
 
-    restoreNames(users)
+      restoreNames(users)
 
-    expect(users[0].firstName).toBe('Mike')
-  });
-
-  it(`'restoreNames should not change`
-  +` firstName if it has value`, () => {
-    const users = [
-      {
-        firstName: 'Andrei',
-        lastName: 'Adams',
-        fullName: 'Mike Adams',
-      },
-    ];
-
-    restoreNames(users)
-
-    expect(users[0].firstName).toBe('Andrei')
-  });
+      expect(users[0].firstName).toBe('Mike')
+    });
 
   it(`'restoreNames should not change`
-  +` firstName if there is no fullName`, () => {
-    const users = [
-      {
-        firstName: 'Andrei',
-        lastName: 'Adams',
-      },
-    ];
+    + ` firstName if it has value`, () => {
+      const users = [
+        {
+          firstName: 'Andrei',
+          lastName: 'Adams',
+          fullName: 'Mike Adams',
+        },
+      ];
 
-    restoreNames(users)
+      restoreNames(users)
 
-    expect(users[0].firstName).toBe('Andrei')
-  });
+      expect(users[0].firstName).toBe('Andrei')
+    });
+
+  it(`'restoreNames should not change`
+    + ` firstName if there is no fullName`, () => {
+      const users = [
+        {
+          firstName: 'Andrei',
+          lastName: 'Adams',
+        },
+      ];
+
+      restoreNames(users)
+
+      expect(users[0].firstName).toBe('Andrei')
+    });
 
   it(`'restoreNames should change`
-  +` firstName if there is fullName has three words`, () => {
-    const users = [
-      {
-        lastName: 'Adams',
-        fullName: 'Mike Simon Adams'
-      },
-    ];
+    + ` firstName if there is fullName has three words`, () => {
+      const users = [
+        {
+          lastName: 'Adams',
+          fullName: 'Mike Simon Adams'
+        },
+      ];
 
-    restoreNames(users)
+      restoreNames(users)
 
-    expect(users[0].firstName).toBe('Mike')
-  });
+      expect(users[0].firstName).toBe('Mike')
+    });
 
   it(`'restoreNames should handle empty user array`, () => {
     const users = [];
@@ -527,26 +528,26 @@ describe(`'fillTank'`, () => {
   });
 
   it(`User.money should not change more`
-  +` than the cost of filling up to maxTankCapacity`, () => {
-    const customer1 = {
-      money: 50, 
-      vehicle: {
-        maxTankCapacity: 40, 
-        fuelRemains: 20,
+    + ` than the cost of filling up to maxTankCapacity`, () => {
+      const customer1 = {
+        money: 50,
+        vehicle: {
+          maxTankCapacity: 40,
+          fuelRemains: 20,
+        }
       }
-    }
 
-    fillTank(customer1, 1, 40);
+      fillTank(customer1, 1, 40);
 
-    expect(customer1.money).toBe(30)
-  });
+      expect(customer1.money).toBe(30)
+    });
 
   it(`should change fuelRemains to maxTankCapacity`, () => {
     const customer1 = {
       money: 100,
       vehicle: {
-        maxTankCapacity: 40, 
-        fuelRemains: 0, 
+        maxTankCapacity: 40,
+        fuelRemains: 0,
       }
     }
 
@@ -557,10 +558,10 @@ describe(`'fillTank'`, () => {
 
   it(`should change fuelRemains to amount of fuel that user can buy`, () => {
     const customer1 = {
-      money: 20, 
+      money: 20,
       vehicle: {
         maxTankCapacity: 40,
-        fuelRemains: 0, 
+        fuelRemains: 0,
       }
     }
 
@@ -571,10 +572,10 @@ describe(`'fillTank'`, () => {
 
   it(`should not change fuelRemains if amount of fuels < 2`, () => {
     const customer1 = {
-      money: 20, 
+      money: 20,
       vehicle: {
         maxTankCapacity: 40,
-        fuelRemains: 0, 
+        fuelRemains: 0,
       }
     }
 
@@ -584,34 +585,34 @@ describe(`'fillTank'`, () => {
   });
 
   it(`should change fuelRemains to decimal`
-  +` value if amount = decimal number`, () => {
-    const customer1 = {
-      money: 20,
-      vehicle: {
-        maxTankCapacity: 40, 
-        fuelRemains: 0, 
+    + ` value if amount = decimal number`, () => {
+      const customer1 = {
+        money: 20,
+        vehicle: {
+          maxTankCapacity: 40,
+          fuelRemains: 0,
+        }
       }
-    }
 
-    fillTank(customer1, 1, 5.64);
+      fillTank(customer1, 1, 5.64);
 
-    expect(customer1.vehicle.fuelRemains).toBe(5.6)
-  });
+      expect(customer1.vehicle.fuelRemains).toBe(5.6)
+    });
 
   it(`should change customer.money to decimal`
-  +` value if fuelPrice = decimal number and amount = decimal number`, () => {
-    const customer1 = {
-      money: 20,
-      vehicle: {
-        maxTankCapacity: 40, 
-        fuelRemains: 0, 
+    + ` value if fuelPrice = decimal number and amount = decimal number`, () => {
+      const customer1 = {
+        money: 20,
+        vehicle: {
+          maxTankCapacity: 40,
+          fuelRemains: 0,
+        }
       }
-    }
 
-    fillTank(customer1, 1.26, 5.64);
+      fillTank(customer1, 1.26, 5.64);
 
-    expect(customer1.money).toBe(12.94)
-  });
+      expect(customer1.money).toBe(12.94)
+    });
 })
 
 describe(`Function 'arrayReverse':`, () => {
@@ -633,24 +634,24 @@ describe(`Function 'arrayReverse':`, () => {
   it(`should return an array with same length
   as original array length`, () => {
     const arrLength = arrayReverse(['Mate', 'Academy'])
-  expect(arrLength.length).toBe(2);
+    expect(arrLength.length).toBe(2);
   });
 
   it(`should not change length of strings in array after reverse`, () => {
     const arrLength = arrayReverse(['Mate', 'Academy'])
-  expect(arrLength[0].length).toBe(4);
+    expect(arrLength[0].length).toBe(4);
   });
 
   it(`should return empty array if empty array used as an argument`, () => {
     const arrLength = arrayReverse([])
-  expect(arrLength).toEqual([]);
+    expect(arrLength).toEqual([]);
   });
 
   it(`should return error message if the 
   function does not take an argument`, () => {
-  expect(() => arrayReverse()).toThrow();
+    expect(() => arrayReverse()).toThrow();
   });
- 
+
 });
 
 describe(`Function 'isPasswordActual':`, () => {
@@ -680,7 +681,7 @@ describe(`Function 'isPasswordActual':`, () => {
   it(`should return 'Password is actual' 
   message if func has no argument`, () => {
     const lastYear = isPasswordActual();
-  
+
     expect(lastYear)
       .toBe('Password is actual.');
   });
@@ -696,7 +697,7 @@ describe(`Function 'isPasswordActual':`, () => {
   it(`should return 'Password is actual' 
   if one of arguments is missing`, () => {
     const lastYear = isPasswordActual(2024, 8);
-  
+
     expect(lastYear)
       .toBe('Password is actual.');
   });
@@ -704,7 +705,7 @@ describe(`Function 'isPasswordActual':`, () => {
   it(`should return 'Password is actual' 
   if string used as argument`, () => {
     const lastYear = isPasswordActual('20g4', '8', '6');
-  
+
     expect(lastYear)
       .toBe('Password is actual.');
   });
@@ -772,9 +773,9 @@ describe(`forEach/Mock using jest.fn`, () => {
     expect(f).toHaveBeenNthCalledWith(3, 3, 2, [1, 2, 3]) //перше число відображає виклик (від 1 починається відлік)
     //в цьому випадку ми перевіряємо в який раз було викликано функцію
   });
-  
+
   it('should return undefined', () => {
-    expect(forEach([], () => {})).toBeUndefined()
+    expect(forEach([], () => { })).toBeUndefined()
   });
 })
 
@@ -846,10 +847,10 @@ describe(`filter/Mock using jest.fn`, () => {
     const items = [1, 2, 3, 4, 5, 6];
 
     const f = jest.fn((item) => false) // для всіх остальних результат буде false
-    .mockReturnValueOnce(true)// повертає один елемент
-    .mockReturnValueOnce(true)// повертає один елемент
-    .mockReturnValueOnce(false)// повертає один елемент
-    .mockReturnValueOnce(true)// повертає один елемент
+      .mockReturnValueOnce(true)// повертає один елемент
+      .mockReturnValueOnce(true)// повертає один елемент
+      .mockReturnValueOnce(false)// повертає один елемент
+      .mockReturnValueOnce(true)// повертає один елемент
     // тут зберігається інформація про виклики, яка може знадобитися при тестуванні
 
     const result = items.filter2(f)
@@ -861,7 +862,7 @@ describe(`filter/Mock using jest.fn`, () => {
 describe(`BankAccount/using spyOn`, () => {
   beforeEach(() => {
     jest.spyOn(bankApi, 'transfer')
-    .mockImplementation(() => {})
+      .mockImplementation(() => { })
   })
 
   afterEach(() => {
@@ -945,12 +946,40 @@ describe('ifElse', () => {
   });
 
   it(`should call a 'condition' function without arguments`, () => {
-    const condition = jest.fn(() => {})
+    const condition = jest.fn(() => { })
     const first = jest.fn()
     const second = jest.fn()
 
     ifElse(condition, first, second)
 
     expect(condition).toHaveBeenCalledTimes(1)
+  });
+});
+
+describe('chainer', () => {
+  it('should correctly chain functions', () => {
+    const f1 = jest.fn((x) => x * 2); 
+    const f2 = jest.fn((x) => x + 2); 
+
+    const result = chainer([f1, f2])(2); 
+
+    expect(result).toBe(6); 
+    expect(f1).toHaveBeenCalledTimes(1); 
+    expect(f2).toHaveBeenCalledTimes(1); 
+  });
+
+  it('should return value if empty array as argument', () => {
+    const result = chainer([])(2); 
+
+    expect(result).toBe(2);
+  });
+
+  it('should correctly apply a single function', () => {
+    const f1 = jest.fn((x) => x * 2);
+
+    const result = chainer([f1])(2);
+
+    expect(result).toBe(4);
+    expect(f1).toHaveBeenCalledTimes(1)
   });
 });
