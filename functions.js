@@ -314,6 +314,30 @@ function chainer(functions) {
     }
   }
   
+  function getCurrentDay() {
+    const weekdays = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+    ];
+
+    const date = new Date();
+    const dayIndex = date.getDay();
+
+    for (let i = 0; i < weekdays.length; i++) {
+        if(i === dayIndex) {
+            return weekdays[i];
+        }
+    }
+  }
+
+  function debounce(callback, delay) {
+
+  }
 
 module.exports = {
     sum,
@@ -335,6 +359,8 @@ module.exports = {
     bankApi,
     ifElse,
     chainer,
+    getCurrentDay,
+    debounce,
 }
 
 

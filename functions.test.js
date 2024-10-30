@@ -18,6 +18,8 @@ const {
   bankApi,
   ifElse,
   chainer,
+  getCurrentDay,
+  debounce,
 } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
@@ -999,5 +1001,107 @@ describe('chainer', () => {
 //   expect(func2).toHaveBeenCalledWith(6);
 //   expect(func3).toHaveBeenCalledWith(8);
 // });
+   it('test for better understanding', () => {
+    const f1 = jest.fn((x) => x * 2)
+    const f2 = jest.fn((x) => x * 25)
+    const f3 = jest.fn((x) => x * 25)
+
+    const result = chainer([f1, f2, f3])(2)
+
+    expect(result).toBe(2500);
+    expect(f1).toHaveBeenCalledWith(2)
+    expect(f2).toHaveBeenCalledWith(4)
+    expect(f3).toHaveBeenCalledWith(100)
+   });
+
+});
+
+describe('getCurrentDay/useFakeTimers', () => {
+
+  beforeEach(() => {
+    jest.useFakeTimers()
+  })
+
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
+  it('should return current day', () => {
+    const result = getCurrentDay();
+
+    expect(result).toBe('Wednesday');
+  });
+
+  it('should work on Thursday', () => {
+    jest.setSystemTime(new Date('2021-12-30'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Thursday');
+  });
+
+  it('should work on Friday', () => {
+    jest.setSystemTime(new Date('2021-12-31'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Friday');
+  });
+
+  it('should work on Saturday', () => {
+    jest.setSystemTime(new Date('2022-01-01'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Saturday');
+  });
+
+  it('should work on Sunday', () => {
+    jest.setSystemTime(new Date('2022-01-02'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Sunday');
+  });
+
+  it('should work on Monday', () => {
+    jest.setSystemTime(new Date('2021-12-27'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Monday');
+  });
+
+  it('Tuesday', () => {
+    jest.setSystemTime(new Date('2021-12-28'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Tuesday');
+  });
+
+  it('should work with future date', () => {
+    jest.setSystemTime(new Date('2041-12-27'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Friday');
+  });
+
+  it('at last second should work at 23:59:59', () => {
+    jest.setSystemTime(new Date('2041-12-27 23:59:59'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Friday');
+  });
+
+  it('at first second should work at 00:00:00', () => {
+    jest.setSystemTime(new Date('2041-12-28 00:00:00'))
+
+    const result = getCurrentDay();
+
+    expect(result).toBe('Saturday');
+  });
 
 });
