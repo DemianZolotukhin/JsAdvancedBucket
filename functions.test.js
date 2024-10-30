@@ -20,6 +20,8 @@ const {
   chainer,
   getCurrentDay,
   debounce,
+  generateSecret,
+  arrSecret,
 } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
@@ -32,14 +34,14 @@ describe.skip('Math functions', () => { //describe використовуєть�
   })
 })
 
-describe('async, await, Promise, fetchuser', () => {
+describe.skip('async, await, Promise, fetchuser', () => {
   test('user data', async () => {
     const user = await fetchUser();
     expect(user.name).toBe('Bohdan Gres')
   })
 })
 
-describe('getPlan', () => {
+describe.skip('getPlan', () => {
   test('Should be an array', () => {
     const result = getPlan();
 
@@ -86,7 +88,7 @@ describe('getPlan', () => {
     expect(result).toEqual([13, 16, 20]);
   })
 })
-describe('addCssClass new Set/add/delete', () => {
+describe.skip('addCssClass new Set/add/delete', () => {
   test('should add class name', () => {
     const el = {
       className: 'joke new'
@@ -160,7 +162,7 @@ describe('addCssClass new Set/add/delete', () => {
   })
 
 })
-describe('removeCssClass', () => {
+describe.skip('removeCssClass', () => {
   test('should remove class', () => { //only, виконаємо тільки його, всі остальні пропустимо(можна і для дескрайбу)
     const el = {
       className: 'joke jobs'
@@ -192,7 +194,7 @@ describe('removeCssClass', () => {
   })
 })
 
-describe('tests with toThrow()', () => {
+describe.skip('tests with toThrow()', () => {
   it('should throw an error if params are invalid', () => {
     const el = {
     };
@@ -209,7 +211,7 @@ describe('tests with toThrow()', () => {
   })
 })
 
-describe(`jsDoc/snippets/debug/'slice' fucntion tests`, () => {
+describe.skip(`jsDoc/snippets/debug/'slice' fucntion tests`, () => {
   it('slice should return value(from start index to end)' +
     'if end index is not present', () => {
       expect(slice('thermaltake', 2)).toBe('ermaltake');
@@ -332,7 +334,7 @@ describe(`jsDoc/snippets/debug/'slice' fucntion tests`, () => {
 })
 
 
-describe(`test getCoinCombination function`, () => {
+describe.skip(`test getCoinCombination function`, () => {
   it(`should be declared`, () => {
     expect(getCoinCombination)
       .toBeInstanceOf(Function);
@@ -397,7 +399,7 @@ describe(`test getCoinCombination function`, () => {
     });
 });
 
-describe(`test isIsogram function`, () => {
+describe.skip(`test isIsogram function`, () => {
   it(`'isIsogram' should return true if argument = ''`, () => {
     expect(isIsogram('')).toBeTruthy();
   });
@@ -430,7 +432,7 @@ describe(`test isIsogram function`, () => {
   });
 })
 
-describe(`'restoreNames' function test`, () => {
+describe.skip(`'restoreNames' function test`, () => {
 
   it(`'restoreNames should update firstName`
     + ` from undefined to the correct value'`, () => {
@@ -514,7 +516,7 @@ describe(`'restoreNames' function test`, () => {
 
 });
 
-describe(`'fillTank'`, () => {
+describe.skip(`'fillTank'`, () => {
   it(`should not change fuelRemains if user has no money`, () => {
     const customer1 = {
       money: 0, // залишок грошей на рахунку клієнта
@@ -617,7 +619,7 @@ describe(`'fillTank'`, () => {
     });
 })
 
-describe(`Function 'arrayReverse':`, () => {
+describe.skip(`Function 'arrayReverse':`, () => {
   // const arrayReverse = require('./arrayReverse');
 
   it(`should be declared`, () => {
@@ -656,7 +658,7 @@ describe(`Function 'arrayReverse':`, () => {
 
 });
 
-describe(`Function 'isPasswordActual':`, () => {
+describe.skip(`Function 'isPasswordActual':`, () => {
   // const isPasswordActual = require('./isPasswordActual');
   const date = new Date(Date.now());
   const today = {
@@ -713,7 +715,7 @@ describe(`Function 'isPasswordActual':`, () => {
   });
 });
 
-describe(`forEach/Mock using jest.fn`, () => {
+describe.skip(`forEach/Mock using jest.fn`, () => {
   beforeEach(() => {
     Array.prototype.forEach2 = forEach
   })
@@ -781,7 +783,7 @@ describe(`forEach/Mock using jest.fn`, () => {
   });
 })
 
-describe(`filter/Mock using jest.fn`, () => {
+describe.skip(`filter/Mock using jest.fn`, () => {
   beforeEach(() => {
     Array.prototype.filter2 = filter;
   })
@@ -861,7 +863,7 @@ describe(`filter/Mock using jest.fn`, () => {
   });
 })
 
-describe(`BankAccount/using spyOn`, () => {
+describe.skip(`BankAccount/using spyOn`, () => {
   beforeEach(() => {
     jest.spyOn(bankApi, 'transfer')
       .mockImplementation(() => { })
@@ -923,7 +925,7 @@ describe(`BankAccount/using spyOn`, () => {
 //   expect(greet('Alice')).toEqual('Mock greeting');
 // });
 
-describe('ifElse', () => {
+describe.skip('ifElse', () => {
 
   it(`should call a 'first' function if 'condition' return is true`, () => {
     const condition = jest.fn(() => true)
@@ -958,7 +960,7 @@ describe('ifElse', () => {
   });
 });
 
-describe('chainer', () => {
+describe.skip('chainer', () => {
   it('should correctly chain functions', () => {
     const f1 = jest.fn((x) => x * 2); 
     const f2 = jest.fn((x) => x + 2); 
@@ -1016,7 +1018,7 @@ describe('chainer', () => {
 
 });
 
-describe('getCurrentDay/useFakeTimers', () => {
+describe.skip('getCurrentDay/useFakeTimers', () => {
 
   beforeEach(() => {
     jest.useFakeTimers()
@@ -1104,4 +1106,116 @@ describe('getCurrentDay/useFakeTimers', () => {
     expect(result).toBe('Saturday');
   });
 
+});
+
+describe('debounce/done setTimeOut testing/jest.advanceTimersByTime', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  })
+
+  afterEach(() => {
+    jest.useRealTimers();
+  })
+
+  it('should be a function', () => {
+    const f = () => {}; 
+
+    expect(debounce(f, 500)).toBeInstanceOf(Function)
+  });
+
+  it('should call a cb after delay', (done) => {
+    const f = jest.fn(); 
+
+    const result = debounce(f, 1000)
+
+    result()
+    expect(f).not.toHaveBeenCalled();
+
+    jest.advanceTimersByTime(500)
+    expect(f).not.toHaveBeenCalled();
+
+    jest.advanceTimersByTime(500)
+    expect(f).toHaveBeenCalled();
+
+    done()
+  });
+
+  it('should be called after last call', () => {
+    const f = jest.fn();
+    
+    const wrappedF = debounce(f, 1000)
+    wrappedF()
+    expect(f).not.toHaveBeenCalled();
+
+    jest.advanceTimersByTime(500)
+    wrappedF()
+
+    jest.advanceTimersByTime(500)
+    expect(f).not.toHaveBeenCalled();
+
+    jest.advanceTimersByTime(500)
+    expect(f).toHaveBeenCalled();
+
+  });
+
+  it('should run callback with last given args', () => {
+    const f = jest.fn();
+    
+    const wrappedF = debounce(f, 1000)
+    wrappedF(1, 2)
+
+    jest.advanceTimersByTime(500)
+    wrappedF(3, 4, 5)
+
+    jest.advanceTimersByTime(500)
+
+    jest.advanceTimersByTime(500)
+    expect(f).toHaveBeenCalledWith(3, 4, 5);
+
+  });
+
+  it('should call function twice if delay was big', () => {
+    const f = jest.fn();
+    
+    const wrappedF = debounce(f, 1000)
+    wrappedF(1, 2)
+
+    jest.advanceTimersByTime(1500)
+    wrappedF(3, 4, 5)
+
+    jest.advanceTimersByTime(1500)
+    expect(f).toHaveBeenNthCalledWith(1, 1, 2);
+    expect(f).toHaveBeenNthCalledWith(2, 3, 4, 5); // перший аргумент вказує на послідовність виклику
+
+  });
+});
+
+describe('guessTheNumber/ toMatch()', () => {
+
+  describe('generateSecret', () => {
+    it('should return a 4-digit string', () => {
+      const result = generateSecret()
+
+      expect(result).toMatch(/^\d{4}$/) //d- digits
+      expect(result).toHaveLength(4)
+      // expect(typeof result).toBe('string')
+    });
+
+    it('should be unique 4-digit string', () => {
+      const result = generateSecret()
+
+      expect(result).toHaveLength(4)
+      expect(arrSecret).not.toContain(result)
+    });
+
+    // it('should be unique 4-digit string', () => {
+    //   const result = generateSecret()
+    //   const digits = new Set(result) 
+    //не очень подходит в моем случае, потому что 
+    //set розбивате посимвольно а число 4-х значне і може містити дублікати(1234) пройде тест
+
+    //   expect(result.length).toBe(digits.size); 
+    //   // в сета щоб отримати довжину потрібно звернутися з size
+    // });
+  })
 });

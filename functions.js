@@ -208,39 +208,39 @@ function roundPrice(price) {
 function arrayReverse(words) {
     let start = 0;
     const whole = words.join('').split('').reverse().join('');
-  
+
     for (let i = 0; i < words.length; i++) {
-      words[i] = whole.slice(start, start + words[i].length);
-      start += words[i].length;
+        words[i] = whole.slice(start, start + words[i].length);
+        start += words[i].length;
     }
-  
+
     return words;
-  }
-  
-  /**
- * @param {number} year
- * @param {number} month
- * @param {number} date
- *
- * @returns {string}
- */
+}
+
+/**
+* @param {number} year
+* @param {number} month
+* @param {number} date
+*
+* @returns {string}
+*/
 function isPasswordActual(year, month, date) {
     const actualDate = new Date(Date.now()).getTime();
     const lastEditedDate = new Date(year, month - 1, date).getTime();
     const diff = actualDate - lastEditedDate;
-  
+
     const days = Math.floor(diff / (60 * 60 * 24 * 1000));
-  
+
     if (days > 60) {
-      return 'Immediately change the password!';
+        return 'Immediately change the password!';
     }
-  
+
     if (days > 30) {
-      return 'You should change your password.';
+        return 'You should change your password.';
     }
-  
+
     return 'Password is actual.';
-  }
+}
 
 function forEach(callback) {
     for (let i = 0; i < this.length; i++) {
@@ -280,7 +280,7 @@ class BankAccount {
 
 const bankApi = {
     transfer: (fromAccount, toAccount, amount) => {
-        
+
     }
 };
 
@@ -291,30 +291,30 @@ const bankApi = {
  */
 function ifElse(condition, first, second) {
     if (condition() === true) {
-      first();
+        first();
     } else {
-      second();
+        second();
     }
-  }
+}
 
-  /**
- * @param {function[]} functions
- *
- * @returns {function}
- */
+/**
+* @param {function[]} functions
+*
+* @returns {function}
+*/
 function chainer(functions) {
     return (x) => {
-      let result = x;
-  
-      for (const f of functions) {
-        result = f(result);
-      }
-  
-      return result;
+        let result = x;
+
+        for (const f of functions) {
+            result = f(result);
+        }
+
+        return result;
     }
-  }
-  
-  function getCurrentDay() {
+}
+
+function getCurrentDay() {
     const weekdays = [
         'Sunday',
         'Monday',
@@ -329,15 +329,44 @@ function chainer(functions) {
     const dayIndex = date.getDay();
 
     for (let i = 0; i < weekdays.length; i++) {
-        if(i === dayIndex) {
+        if (i === dayIndex) {
             return weekdays[i];
         }
     }
-  }
+}
 
-  function debounce(callback, delay) {
+function debounce(callback, delay) {
+    let timerId;
 
-  }
+    return (...args) => {
+        clearTimeout(timerId)
+        timerId = setTimeout(() => {
+            callback(...args)
+        }, delay)
+    };
+}
+
+
+function printArgs(...args) {
+    console.log(args)
+}
+
+let arrSecret = [];
+
+function generateSecret() {
+    let random;
+
+    do {
+        random = Math.floor(Math.random() * (4000 - 1000)) + 1000;
+    } while (arrSecret.includes(random))
+
+    arrSecret.push(random)
+
+    return random.toString()
+
+}
+
+
 
 module.exports = {
     sum,
@@ -361,6 +390,8 @@ module.exports = {
     chainer,
     getCurrentDay,
     debounce,
+    generateSecret,
+    arrSecret,
 }
 
 
