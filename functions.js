@@ -347,24 +347,38 @@ function debounce(callback, delay) {
 }
 
 
-function printArgs(...args) {
-    console.log(args)
-}
+// function printArgs(...args) {
+//     console.log(args)
+// }
 
-let arrSecret = [];
+// function generateSecret2() {
+//     const digits = '0123456789'.split('');
+//     const result = digits.sort(() => Math.random() - 0.5)
 
-function generateSecret() {
-    let random;
+//     return result.slice(-4).join('');
+// }
 
-    do {
-        random = Math.floor(Math.random() * (4000 - 1000)) + 1000;
-    } while (arrSecret.includes(random))
+// function generateSecret() {
+//     let digits;
+//     let result;
+//     let attempts = 0;
+//     const maxAttemps = 100;
 
-    arrSecret.push(random)
+//     do {
+//         const x = Math.trunc(Math.random() * 10000)
+//         result = `${x}`//.padStart(4, '0')
+//         digits = new Set(result)
+//         attempts++;
 
-    return random.toString()
 
-}
+//         if (attempts >= maxAttemps) {
+//             throw new Error('gnilaya')
+//         }
+
+//     } while (digits.size !== result.length)
+
+//     return result;
+// }
 
 
 
@@ -391,7 +405,6 @@ module.exports = {
     getCurrentDay,
     debounce,
     generateSecret,
-    arrSecret,
 }
 
 

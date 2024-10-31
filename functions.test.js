@@ -21,7 +21,6 @@ const {
   getCurrentDay,
   debounce,
   generateSecret,
-  arrSecret,
 } = require('./functions');
 
 describe.skip('Math functions', () => { //describe використовується для групування тестів
@@ -962,18 +961,18 @@ describe.skip('ifElse', () => {
 
 describe.skip('chainer', () => {
   it('should correctly chain functions', () => {
-    const f1 = jest.fn((x) => x * 2); 
-    const f2 = jest.fn((x) => x + 2); 
+    const f1 = jest.fn((x) => x * 2);
+    const f2 = jest.fn((x) => x + 2);
 
-    const result = chainer([f1, f2])(2); 
+    const result = chainer([f1, f2])(2);
 
-    expect(result).toBe(6); 
-    expect(f1).toHaveBeenCalledTimes(1); 
-    expect(f2).toHaveBeenCalledTimes(1); 
+    expect(result).toBe(6);
+    expect(f1).toHaveBeenCalledTimes(1);
+    expect(f2).toHaveBeenCalledTimes(1);
   });
 
   it('should return value if empty array as argument', () => {
-    const result = chainer([])(2); 
+    const result = chainer([])(2);
 
     expect(result).toBe(2);
   });
@@ -987,23 +986,23 @@ describe.skip('chainer', () => {
     expect(f1).toHaveBeenCalledTimes(1)
   });
 
-//   it('should call all functions with a correct parameter', () => {
-//   const func1 = jest.fn((x) => {
-//     return x * 2;
-//   });
-//   const func2 = jest.fn((x) => {
-//     return x + 2;
-//   });
-//   const func3 = jest.fn((x) => {
-//     return Math.pow(x, 2);
-//   });
+  //   it('should call all functions with a correct parameter', () => {
+  //   const func1 = jest.fn((x) => {
+  //     return x * 2;
+  //   });
+  //   const func2 = jest.fn((x) => {
+  //     return x + 2;
+  //   });
+  //   const func3 = jest.fn((x) => {
+  //     return Math.pow(x, 2);
+  //   });
 
-//   chainer([func1, func2, func3])(3);
-//   expect(func1).toHaveBeenCalledWith(3);
-//   expect(func2).toHaveBeenCalledWith(6);
-//   expect(func3).toHaveBeenCalledWith(8);
-// });
-   it('test for better understanding', () => {
+  //   chainer([func1, func2, func3])(3);
+  //   expect(func1).toHaveBeenCalledWith(3);
+  //   expect(func2).toHaveBeenCalledWith(6);
+  //   expect(func3).toHaveBeenCalledWith(8);
+  // });
+  it('test for better understanding', () => {
     const f1 = jest.fn((x) => x * 2)
     const f2 = jest.fn((x) => x * 25)
     const f3 = jest.fn((x) => x * 25)
@@ -1014,7 +1013,7 @@ describe.skip('chainer', () => {
     expect(f1).toHaveBeenCalledWith(2)
     expect(f2).toHaveBeenCalledWith(4)
     expect(f3).toHaveBeenCalledWith(100)
-   });
+  });
 
 });
 
@@ -1118,13 +1117,13 @@ describe('debounce/done setTimeOut testing/jest.advanceTimersByTime', () => {
   })
 
   it('should be a function', () => {
-    const f = () => {}; 
+    const f = () => { };
 
     expect(debounce(f, 500)).toBeInstanceOf(Function)
   });
 
   it('should call a cb after delay', (done) => {
-    const f = jest.fn(); 
+    const f = jest.fn();
 
     const result = debounce(f, 1000)
 
@@ -1142,7 +1141,7 @@ describe('debounce/done setTimeOut testing/jest.advanceTimersByTime', () => {
 
   it('should be called after last call', () => {
     const f = jest.fn();
-    
+
     const wrappedF = debounce(f, 1000)
     wrappedF()
     expect(f).not.toHaveBeenCalled();
@@ -1160,7 +1159,7 @@ describe('debounce/done setTimeOut testing/jest.advanceTimersByTime', () => {
 
   it('should run callback with last given args', () => {
     const f = jest.fn();
-    
+
     const wrappedF = debounce(f, 1000)
     wrappedF(1, 2)
 
@@ -1176,7 +1175,7 @@ describe('debounce/done setTimeOut testing/jest.advanceTimersByTime', () => {
 
   it('should call function twice if delay was big', () => {
     const f = jest.fn();
-    
+
     const wrappedF = debounce(f, 1000)
     wrappedF(1, 2)
 
@@ -1190,32 +1189,86 @@ describe('debounce/done setTimeOut testing/jest.advanceTimersByTime', () => {
   });
 });
 
-describe('guessTheNumber/ toMatch()', () => {
+// describe('guessTheNumber', () => {
 
-  describe('generateSecret', () => {
-    it('should return a 4-digit string', () => {
-      const result = generateSecret()
+//   describe('generateSecret/ toMatch()', () => {
+//     const results = []
 
-      expect(result).toMatch(/^\d{4}$/) //d- digits
-      expect(result).toHaveLength(4)
-      // expect(typeof result).toBe('string')
-    });
+//     beforeAll(() => {
+//       for (let i = 0; i < 4; i++) {
+//         results.push(generateSecret())
+//       }
+//     })
 
-    it('should be unique 4-digit string', () => {
-      const result = generateSecret()
+//     beforeEach(() => {
+//       jest.spyOn(Math, 'random');
+//     });
 
-      expect(result).toHaveLength(4)
-      expect(arrSecret).not.toContain(result)
-    });
+//     afterEach(() => {
+//       Math.random.mockReset();
+//     })
 
-    // it('should be unique 4-digit string', () => {
-    //   const result = generateSecret()
-    //   const digits = new Set(result) 
-    //не очень подходит в моем случае, потому что 
-    //set розбивате посимвольно а число 4-х значне і може містити дублікати(1234) пройде тест
+//     it(`should return a 4-digit string`, () => {
 
-    //   expect(result.length).toBe(digits.size); 
-    //   // в сета щоб отримати довжину потрібно звернутися з size
-    // });
-  })
-});
+//       for (const result of results) {
+//         expect(result).toMatch(/^\d{4}$/)
+//         expect(result).toHaveLength(4)
+//       }
+
+//       //d- digits
+//       // expect(typeof result).toBe('string')
+//     });
+
+//     it(`should be unique 4-digit string`, () => {
+//       for (const result of results) {
+//         const digits = new Set(result)
+//         expect(result.length).toBe(digits.size);
+//       }
+
+
+//       // не очень подходит в моем случае, потому что 
+//       // set розбивате посимвольно а число 4-х значне і може містити дублікати(1234) пройде тест
+//       // в сета щоб отримати довжину потрібно звернутися з size
+//     });
+
+//     // it('should return random values', () => {
+//     //   const results = [
+//     //     generateSecret(),
+//     //     generateSecret(),
+//     //     generateSecret(),
+//     //     generateSecret(),
+//     //     generateSecret(),
+//     //   ]
+
+//     //   const unique = new Set(results)
+
+//     //   expect(unique.size).toBeGreaterThanOrEqual(results.length - 1) //results.length -1 (5)
+//     // });
+
+//     // it('should return 4-digits secret', () => {
+//     //   Math.random.mockReturnValueOnce(0.1234);
+//     //   const result = generateSecret();
+
+//     //   expect(result).toBe('1234');
+//     // });
+
+//     // it('should add leading 0 for 3 digits secret', () => {
+//     //   Math.random.mockReturnValueOnce(0.0874);
+//     //   const result = generateSecret();
+
+//     //   expect(result).toBe('0874');
+//     // });
+
+//     // it('should not use secret with duplicates', () => {
+//     //   Math.random.mockReturnValueOnce(0.4054);
+//     //   Math.random.mockReturnValueOnce(0.2278);
+//     //   Math.random.mockReturnValueOnce(0.9999);
+
+//     //   Math.random.mockReturnValueOnce(0.4398);
+
+//     //   const result = generateSecret();
+//     //   expect(result).toBe('4398');
+//     // });
+//   })
+// });
+
