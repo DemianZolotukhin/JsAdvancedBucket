@@ -1189,86 +1189,86 @@ describe('debounce/done setTimeOut testing/jest.advanceTimersByTime', () => {
   });
 });
 
-// describe('guessTheNumber', () => {
+describe('guessTheNumber', () => {
 
-//   describe('generateSecret/ toMatch()', () => {
-//     const results = []
+  describe('generateSecret/ toMatch()', () => {
+    const results = []
 
-//     beforeAll(() => {
-//       for (let i = 0; i < 4; i++) {
-//         results.push(generateSecret())
-//       }
-//     })
+    beforeAll(() => {
+      for (let i = 0; i < 4; i++) {
+        results.push(generateSecret())
+      }
+    })
 
-//     beforeEach(() => {
-//       jest.spyOn(Math, 'random');
-//     });
+    beforeEach(() => {
+      jest.spyOn(Math, 'random');
+    });
 
-//     afterEach(() => {
-//       Math.random.mockReset();
-//     })
+    afterEach(() => {
+      Math.random.mockReset();
+    })
 
-//     it(`should return a 4-digit string`, () => {
+    it(`should return a 4-digit string`, () => {
 
-//       for (const result of results) {
-//         expect(result).toMatch(/^\d{4}$/)
-//         expect(result).toHaveLength(4)
-//       }
+      for (const result of results) {
+        expect(result).toMatch(/^\d{4}$/)
+        expect(result).toHaveLength(4)
+      }
 
-//       //d- digits
-//       // expect(typeof result).toBe('string')
-//     });
+      //d- digits
+      // expect(typeof result).toBe('string')
+    });
 
-//     it(`should be unique 4-digit string`, () => {
-//       for (const result of results) {
-//         const digits = new Set(result)
-//         expect(result.length).toBe(digits.size);
-//       }
+    it(`should be unique 4-digit string`, () => {
+      for (const result of results) {
+        const digits = new Set(result)
+        expect(result.length).toBe(digits.size);
+      }
 
 
-//       // не очень подходит в моем случае, потому что 
-//       // set розбивате посимвольно а число 4-х значне і може містити дублікати(1234) пройде тест
-//       // в сета щоб отримати довжину потрібно звернутися з size
-//     });
+      // не очень подходит в моем случае, потому что 
+      // set розбивате посимвольно а число 4-х значне і може містити дублікати(1234) пройде тест
+      // в сета щоб отримати довжину потрібно звернутися з size
+    });
 
-//     // it('should return random values', () => {
-//     //   const results = [
-//     //     generateSecret(),
-//     //     generateSecret(),
-//     //     generateSecret(),
-//     //     generateSecret(),
-//     //     generateSecret(),
-//     //   ]
+    // it('should return random values', () => {
+    //   const results = [
+    //     generateSecret(),
+    //     generateSecret(),
+    //     generateSecret(),
+    //     generateSecret(),
+    //     generateSecret(),
+    //   ]
 
-//     //   const unique = new Set(results)
+    //   const unique = new Set(results)
 
-//     //   expect(unique.size).toBeGreaterThanOrEqual(results.length - 1) //results.length -1 (5)
-//     // });
+    //   expect(unique.size).toBeGreaterThanOrEqual(results.length - 1) //results.length -1 (5)
+    // });
 
-//     // it('should return 4-digits secret', () => {
-//     //   Math.random.mockReturnValueOnce(0.1234);
-//     //   const result = generateSecret();
+    // it('should return 4-digits secret', () => {
+    //   Math.random.mockReturnValueOnce(0.1234);
+    //   const result = generateSecret();
 
-//     //   expect(result).toBe('1234');
-//     // });
+    //   expect(result).toBe('1234');
+    // });
 
-//     // it('should add leading 0 for 3 digits secret', () => {
-//     //   Math.random.mockReturnValueOnce(0.0874);
-//     //   const result = generateSecret();
+    // it('should add leading 0 for 3 digits secret', () => {
+    //   Math.random.mockReturnValueOnce(0.0874);
+    //   const result = generateSecret();
 
-//     //   expect(result).toBe('0874');
-//     // });
+    //   expect(result).toBe('0874');
+    // });
 
-//     // it('should not use secret with duplicates', () => {
-//     //   Math.random.mockReturnValueOnce(0.4054);
-//     //   Math.random.mockReturnValueOnce(0.2278);
-//     //   Math.random.mockReturnValueOnce(0.9999);
+    // it('should not use secret with duplicates', () => {
+    //   Math.random.mockReturnValueOnce(0.4054);
+    //   Math.random.mockReturnValueOnce(0.2278);
+    //   Math.random.mockReturnValueOnce(0.9999);
 
-//     //   Math.random.mockReturnValueOnce(0.4398);
+    //   Math.random.mockReturnValueOnce(0.4398);
 
-//     //   const result = generateSecret();
-//     //   expect(result).toBe('4398');
-//     // });
-//   })
-// });
+    //   const result = generateSecret();
+    //   expect(result).toBe('4398');
+    // });
+  })
+});
 

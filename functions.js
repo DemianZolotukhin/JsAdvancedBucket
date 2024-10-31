@@ -347,38 +347,38 @@ function debounce(callback, delay) {
 }
 
 
-// function printArgs(...args) {
-//     console.log(args)
-// }
+function printArgs(...args) {
+    console.log(args)
+}
 
-// function generateSecret2() {
-//     const digits = '0123456789'.split('');
-//     const result = digits.sort(() => Math.random() - 0.5)
+function generateSecret2() {
+    const digits = '0123456789'.split('');
+    const result = digits.sort(() => Math.random() - 0.5)
 
-//     return result.slice(-4).join('');
-// }
+    return result.slice(-4).join('');
+}
 
-// function generateSecret() {
-//     let digits;
-//     let result;
-//     let attempts = 0;
-//     const maxAttemps = 100;
+function generateSecret() {
+    let digits;
+    let result;
+    let attempts = 0;
+    const maxAttemps = 100;
 
-//     do {
-//         const x = Math.trunc(Math.random() * 10000)
-//         result = `${x}`//.padStart(4, '0')
-//         digits = new Set(result)
-//         attempts++;
+    do {
+        const x = Math.trunc(Math.random() * 10000)
+        result = `${x}`.padStart(4, '0')
+        digits = new Set(result)
+        attempts++;
 
 
-//         if (attempts >= maxAttemps) {
-//             throw new Error('gnilaya')
-//         }
+        if (attempts >= maxAttemps) {
+            throw new Error('gnilaya')
+        }
 
-//     } while (digits.size !== result.length)
+    } while (digits.size !== result.length)
 
-//     return result;
-// }
+    return result;
+}
 
 
 
