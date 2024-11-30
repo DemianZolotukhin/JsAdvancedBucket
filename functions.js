@@ -406,4 +406,3 @@ module.exports = {
     debounce,
     generateSecret,
 }
-
